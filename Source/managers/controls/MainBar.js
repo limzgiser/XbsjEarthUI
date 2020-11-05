@@ -85,10 +85,10 @@ class MainBar {
                 czmDom.style.height = '100%';
             }
             else if (this.page == '') {
-                czmDom.style.height = 'calc(100% - 41px)';
+                czmDom.style.height = 'calc(100% - 50px)';
             }
             else {
-                czmDom.style.height = 'calc(100% - 137px)';
+                czmDom.style.height = 'calc(100% - 146px)';
             }
         });
 
