@@ -8,7 +8,7 @@
     :height="500"
     :min-width="396"
     :left="500"
-    :top="138"
+    :top="150"
     :title="lang.labtitle"
   >
     <div class="containbox" style="overflow-y: hidden;">

@@ -1,5 +1,5 @@
 <template>
-<Window :footervisible="false" @cancel="show=false" v-show="show" :width="463" :minWidth="200" :height="500" :left="500" :top="138" :title="lang.title">
+<Window :footervisible="false" @cancel="show=false" v-show="show" :width="463" :minWidth="200" :height="500" :left="500" :top="150" :title="lang.title">
     <div class="group" v-for="g in groups">
         <div class="groupname" @click=" g.close = !g.close;">
             <label>{{g.name}}</label>

@@ -47,7 +47,7 @@
       :minWidth="200"
       :height="500"
       :left="500"
-      :top="138"
+      :top="150"
       :title="lang.title"
     >
       <div class="group">

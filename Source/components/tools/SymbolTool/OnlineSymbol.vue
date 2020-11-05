@@ -6,7 +6,7 @@
     :width="690"
     :minWidth="500"
     :left="200"
-    :top="138"
+    :top="150"
     :title="lang.online.title"
     class="xbsj-onlineSymbol"
   >

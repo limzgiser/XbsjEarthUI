@@ -8,7 +8,7 @@
     :minWidth="202"
     :height="500"
     :left="5"
-    :top="138"
+    :top="150"
     :title="lang.cloudtitle"
     class="xbsj-localTerrain"
   >

@@ -6,7 +6,7 @@
     v-show="show"
     :height="500"
     :left="800"
-    :top="138"
+    :top="150"
     :title="lang.title"
   >
     <div class="header">

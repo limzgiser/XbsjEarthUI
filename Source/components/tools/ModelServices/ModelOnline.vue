@@ -8,7 +8,7 @@
     :width="500"
     :minWidth="202"
     :left="200"
-    :top="138"
+    :top="150"
     :title="lang.title"
     class="xbsj-onlineModel"
   >

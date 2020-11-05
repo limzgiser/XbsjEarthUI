@@ -15,7 +15,7 @@ var myTool = {
                 :minWidth="202"
                 :height="500"
                 :left="5"
-                :top="138"
+                :top="150"
                 :title="title" 
                 v-show="show"
                 >

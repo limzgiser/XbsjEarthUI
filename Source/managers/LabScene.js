@@ -58,7 +58,7 @@ class LabScene {
 
         //更新标题
         this.unbinds.push(XE.MVVM.watch(() => {
-            document.title = this.sceneName;
+            // document.title = this.sceneName;
         }));
 
         // //更新url参数

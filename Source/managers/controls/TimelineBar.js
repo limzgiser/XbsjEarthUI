@@ -15,10 +15,8 @@ class TimelineBar {
             * @instance
             * @memberof TimelineBar
             */
-            show: true,
+            show: false,
         });
-
-
 
         this.unbind1 = XE.MVVM.bind(
             this._comp,

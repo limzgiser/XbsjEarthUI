@@ -6,7 +6,7 @@
     v-show="show"
     :height="500"
     :left="5"
-    :top="138"
+    :top="150"
     :title="lang.title"
     @contextMenu="onContexMenu"
     class="xbsjSceneTreeBox"
