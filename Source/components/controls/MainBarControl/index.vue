@@ -1,5 +1,8 @@
 <template>
 <div class="xbsj-nav" @click="hidePopup" v-show="show">
+<div class="user-adm">
+<userInfoComp></userInfoComp>
+</div>
 
     <div class='top-menu'>
         <img :src="logoImg" class="logo-img">
@@ -51,6 +54,7 @@ import EntityComp from "./Entity";
 import OtherComp from "./Other";
 import languagejs from "./index_locale";
 import logoImg from "../../../images/geo3d/logo_3d.png";
+import userInfoComp from './geo3d/userInfo'
 export default {
     components: {
         NavigateComp,
@@ -61,7 +65,8 @@ export default {
         AnalysisComp,
         EffectComp,
         EntityComp,
-        OtherComp
+        OtherComp,
+        userInfoComp
     },
     data: function () {
         return {
@@ -119,6 +124,7 @@ export default {
             if (this.page == page) {
                 this.page = "";
             } else {
+                
                 this.page = page;
             }
         },
@@ -138,6 +144,12 @@ export default {
 </script>
 
 <style>
+.user-adm{
+    position:absolute;
+    right:20px;
+    height:50px;
+
+}
 .top-menu {
     display: flex;
     background: #474747;
