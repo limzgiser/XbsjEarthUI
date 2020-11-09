@@ -1,18 +1,7 @@
 <template>
 <div class="xbsj-mainbar-popup popup">
     <div>
-        <label>{{lang.sceneName}}:</label>
-        <!--  修改原来是 @keyup.enter-->
-        <input class="inputstyle" v-model="sceneName" @keyup="updateName" />
-    </div>
-    <div class="sceneDes">
-        <label style="margin-right:3px;">{{lang.sceneDes}}:</label>
-        <!--  修改原来是 @keyup.enter-->
-        <textarea class="inputstyle" rows="2" v-model="sceneDes" @keyup="updateSceneDes" />
-    </div>
-    <div style="margin-top:10px;">
-        <label>{{lang.thumbnail}}:</label>
-        <XbsjCaptureThumbnail style="float:right;width: calc(100% - 55px);height: 96px;" :value="thumbnail" @changed="updateThumbNail"></XbsjCaptureThumbnail>
+        场景 打开 <h1></h1>
     </div>
 </div>
 </template>
@@ -64,7 +53,7 @@ export default {
 <style scoped>
 .popup {
     width: 312px;
-    height: 185px;
+    height: 250px;
 }
 
 .sceneDes {
