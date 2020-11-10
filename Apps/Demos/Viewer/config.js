@@ -1,0 +1,1 @@
+var serverpath = 'http://192.168.2.179/3d_v1/'

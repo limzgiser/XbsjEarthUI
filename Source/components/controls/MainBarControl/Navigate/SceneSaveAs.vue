@@ -1,17 +1,17 @@
 <template>
 <div class="xbsj-mainbar-popup popup">
     <div>
-        <label>{{lang.sceneName}}:</label>
+        <label>{{ lang.sceneName }}:</label>
         <!--  修改原来是 @keyup.enter-->
         <input class="inputstyle" v-model="sceneName" @keyup="updateName" />
     </div>
     <div class="sceneDes">
-        <label style="margin-right:3px;">{{lang.sceneDes}}:</label>
+        <label style="margin-right:3px;">{{ lang.sceneDes }}:</label>
         <!--  修改原来是 @keyup.enter-->
         <textarea class="inputstyle" rows="2" v-model="sceneDes" @keyup="updateSceneDes" />
     </div>
     <div style="margin-top:10px;">
-        <label>{{lang.thumbnail}}:</label>
+        <label>{{ lang.thumbnail }}:</label>
         <XbsjCaptureThumbnail style="float:right;width: calc(100% - 55px);height: 96px;" :value="thumbnail" @changed="updateThumbNail"></XbsjCaptureThumbnail>
     </div>
 </div>
@@ -36,25 +36,37 @@ export default {
             lang: undefined,
             sceneName: "新建场景",
             sceneID: undefined,
-            sceneDes: '',
+            sceneDes: "场景描述信息",
             thumbnail: ""
         };
     },
-    created() {
-
-    },
+    created() {},
     mounted() {},
     methods: {
         updateThumbNail(img) {
+            this.thumbnail = img;
+            // 另存场景雪碧图
             // this.$root.$earthUI.labScene.updateThumbNail(img);
-            this.$root.$earthUI.labScene.saveThumbNail(img);
+            // this.$root.$earthUI.labScene.saveAsThumbNail(img);
         },
         updateName() {
-            this.$root.$earthUI.labScene.updateName();
+            // this.$root.$earthUI.labScene.updateName();
+            this.$root.$earthUI.labScene.saveAsSceneInfo(this.paramsInfo);
         },
         updateSceneDes() {
-            this.$root.$earthUI.labScene.updateSceneDes(this.sceneDes);
-        }
+            // this.$root.$earthUI.labScene.updateSaveAsSceneDes(this.sceneDes);
+            this.$root.$earthUI.labScene.saveAsSceneInfo(this.paramsInfo);
+        },
+
+    },
+    computed: {
+        paramsInfo: function () {
+            return {
+                name: this.sceneName,
+                summary: this.sceneDes,
+                thumbnail: this.thumbnail
+            }
+        },
     },
 
     beforeDestroy() {}
@@ -71,7 +83,6 @@ export default {
     margin-top: 10px;
     display: flex;
     align-items: center;
-
 }
 
 .inputstyle {

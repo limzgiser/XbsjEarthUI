@@ -1,8 +1,9 @@
 import axios from "axios";
 import QS from 'qs';
+import cloneDeep from 'lodash';
 // post请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-
+ 
 /**
  * CesiumLab服务访问控制
  * @class
@@ -10,7 +11,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 class LabServer {
   constructor(root) {
     this._root = root;
-    this._defaultServer = 'http://localhost:9000/';
+ //   console.log(serverpath)
+    this._defaultServer =  serverpath; // config.js中配置全局变量 // 'http://192.168.2.179/3d_v1/';
     //定义一个响应式变量 server
     XE.MVVM.extend(this, {
       /**
@@ -20,7 +22,7 @@ class LabServer {
       * @instance
       * @memberof LabServer
       */
-      server: this._defaultServer,
+      server: serverpath,  //  this._defaultServer,
       /**
   * CesiumLab在线服务服务地址
   * @type {string}
@@ -28,7 +30,7 @@ class LabServer {
   * @instance
   * @memberof LabServer
   */
-      serverOnline: '//lab2.cesiumlab.com/',
+      serverOnline:  '//lab2.cesiumlab.com/',
 
       /**
      * CesiumLab在线服务服务地址
@@ -309,15 +311,16 @@ class LabServer {
       * @param {String} content  场景内容
   * @returns {Promise}  
   */
-  addScene (name, content) {
+  addScene (params) {
+ 
     return new Promise((resolve, reject) => {
       axios
-        .post(this.server + "scene", QS.stringify({ name: name, content: content }))
+        .post(this.server + "scenes/info", QS.stringify(params))
         .then(res => {
-          console.log(res);
-          if (res.status == 200 && res.data.status == "ok") {
-
-            resolve(res.data.id);
+          // console.log(res)
+          if (res.status == 200 && res.data.message == "ok") {
+          // alert(res.data.results.id);
+            resolve(res.data.results.id);
           } else {
             reject(res.data.status);
           }
@@ -335,14 +338,13 @@ class LabServer {
 * @param {String} content  场景内容
 * @returns {Promise}  
 */
-  updateScene (id, content) {
+  updateScene (id, params) {
     return new Promise((resolve, reject) => {
       axios
-        .put(this.server + "scene/" + id, QS.stringify({ content: content }))
+        .post(this.server + "scenes/info/" + id +"/", QS.stringify(params))
         .then(res => {
           console.log(res);
-          if (res.status == 200 && res.data.status == "ok") {
-
+          if (res.status == 200 && res.data.message == "ok") {
             resolve(true);
           } else {
             reject(res.data.status);

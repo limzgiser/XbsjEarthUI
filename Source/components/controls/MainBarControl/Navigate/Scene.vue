@@ -46,17 +46,28 @@ export default {
     mounted() {},
     methods: {
         updateThumbNail(img) {
+            this.thumbnail = img;
             // this.$root.$earthUI.labScene.updateThumbNail(img);
-            this.$root.$earthUI.labScene.saveThumbNail(img);
+            // this.$root.$earthUI.labScene.saveThumbNail(img);
         },
         updateName() {
-            this.$root.$earthUI.labScene.updateName();
+            // this.$root.$earthUI.labScene.updateName();
+            this.$root.$earthUI.labScene.saveSceneInfo(this.paramsInfo);
         },
         updateSceneDes() {
-            this.$root.$earthUI.labScene.updateSceneDes(this.sceneDes);
+            // this.$root.$earthUI.labScene.updateSaveSceneDes(this.sceneDes);
+            this.$root.$earthUI.labScene.saveSceneInfo(this.paramsInfo);
         }
     },
-
+    computed: {
+        paramsInfo: function () {
+            return {
+                name: this.sceneName,
+                summary: this.sceneDes,
+                thumbnail: this.thumbnail
+            }
+        },
+    },
     beforeDestroy() {}
 };
 </script>

@@ -19,7 +19,7 @@
             <!--场景另存 -->
 
             <div class="xbsj-item-btnbox">
-                <div class="xbsj-item-btn savebutton" @click="saveScene"></div>
+                <div class="xbsj-item-btn savebutton" @click="saveAsScene"></div>
                 <span class="xbsj-item-name">{{lang.saveAsscene}}</span>
             </div>
             <span class="xbsj-select" :class="{highlight:popup == 'sceneSaveAs'}" @click.stop="togglePopup('sceneSaveAs',$event)"></span>
@@ -153,7 +153,9 @@
     <FirstPersonComp ref="firstPerson" v-show="popup =='firstPerson'"></FirstPersonComp>
     <PickObjectComp ref="pickObject" v-show="popup =='pickObject'"></PickObjectComp>
     <SceneOpenComp ref="openScene" v-show="popup =='openScene'"></SceneOpenComp>
-    <SceneSaveAsComp ref="sceneView" v-show="popup =='sceneView'"></SceneSaveAsComp>
+    <!-- @hideOpenScene="hideOpenScene"  -->
+    <SceneSaveAsComp ref=" sceneView" v-show="popup =='sceneView'">
+    </SceneSaveAsComp>
     <SceneSaveAsComp ref="sceneSaveAs" v-show="popup =='sceneSaveAs'"></SceneSaveAsComp>
 </div>
 </template>
@@ -351,11 +353,18 @@ export default {
         }
     },
     methods: {
+        hideOpenScene() {
+            console.log(123);
+            this.popup = '';
+        },
         cameraattachbtn() {
             this.cameraAttached = false;
         },
         saveScene() {
             this.$root.$earthUI.labScene.saveScene();
+        },
+        saveAsScene() {
+            this.$root.$earthUI.labScene.newScene();
         },
         flyToGlobe() {
             this.$root.$earth.cameraViewManager.globe.flyTo();
