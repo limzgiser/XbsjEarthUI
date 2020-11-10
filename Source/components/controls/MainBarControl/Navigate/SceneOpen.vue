@@ -1,6 +1,16 @@
 <template>
-<Window :footervisible="true" @cancel="cancel" @ok="ok" v-show="show" :height="420" :width="500" :minWidth="202" :left="200" :top="150" :title="lang.title" class="xbsj-onlineImage">
-    cccccccccccccccc
+<Window :footervisible="true" @cancel="cancel" @ok="ok" v-show="show" :height="420" :width="500" :minWidth="202" :left="200" :top="150" title="打开场景" class="xbsj-onlineImage">
+    <div class="container">
+        <div class="item" :class="{ selectedItem: selectScene && item.id === selectScene.id }" v-for="item in sceneList" :key="item.id" @click="sceneItemClick(item)">
+            <div>
+                <img style="width:64px;height:64px;" :src="item.thumbnail" alt />
+            </div>
+            <div class="item-name">
+                {{ item.name }}
+            </div>
+            <span @click.self="deleteScene(item)" class="closeitem">X</span>
+        </div>
+    </div>
 </Window>
 </template>
 
@@ -10,7 +20,9 @@ export default {
     data() {
         return {
             show: true,
-            sceneList: []
+            sceneList: [],
+            selectScene: null,
+      
         };
     },
     created() {},
@@ -18,6 +30,9 @@ export default {
         this.getSceneList();
     },
     methods: {
+        sceneItemClick(item) {
+            this.selectScene = item;
+        },
         hideOpenScene() {
             this.$emit("hideOpenScene");
         },
@@ -29,62 +44,50 @@ export default {
                     params: {}
                 })
                 .then(res => {
-                    this.sceneList = res.data.results.list;
-                    console.log(res.data.results.list);
-                    //   if(res.data.status){
+                    this.sceneList = [{
+                            id: '',
+                            name: "空场景",
+                            'thumbnail': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCABAAEADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAABQYDBwACBAgB/8QAMxAAAgIBAwIFAQYFBQAAAAAAAQIDEQQFEiEAMQYTIkFRYQcUIzJxgRZCkaHBJFJisfD/xAAZAQADAQEBAAAAAAAAAAAAAAADBAYFAgD/xAAnEQABAwMEAAYDAAAAAAAAAAABAAIDBBExBRIhQRMUIlFhgTKhsf/aAAwDAQACEQMRAD8Ah1+LGxcUz5IMUUgR7MY2gs1VQ47+w7Vzx1XuSHydTjxcHHnyk3222FrotTLxQq64sc2L+LkGkHxNu01cEuw2hoceSMs8hAIQB9t0zA/JC8AWD12/wBpWkM2m69gLJBtV4JY4o4DIgtNrb7IChQbsnm7JYghEgblKy0pnfduFROFiTZks+NKMqF5pN0KvCDv+VNcqOe/IF/v1k2mS+czQCggLSKPSUIFjk+xFm+OAewHV0+MfA+l6TrMOoY+mrkxiJVAwUEaUWa22lmHO4E8dx2BPCbD9n82N/rdLZZMLyd8IoEvIPyhgVo0T7jj9eeu2TMPJwl5KF7OLJVAWCBREyuAnl7g3EhsXVd1scHuf++TKysq40mkl3AGi5YVfO7j5vv79NGg+DtV3iTUozHGGVfJYFLoVzYJN/A9+fjot4v0DTsDSZsoInnSAEKikkP2vdRv+x7jnnrzpQXcLh1NIY92Le6Q4zPKrskpph6gb9Ne/HWR6rmbGC5EzRrGN8b5DBGUADizwDxYB7X2vojLg5OFpazQRgfhneSn5rAO0+4P/AL36H5mL910iWSJSMj0GYgECOySF55BBv68fr0SOVzT6TZKPaW5XpHC+z3xjos33yPUVWMySFleQxhnDbnO0qt7jvIIBU2Cf5gxpsPxPmZEjZXljJChd6NcciADdSMoCj8xtSeT6fdunjK8TQwTLCIU8veu5pjsUmzxZ7EbSaIH0PBrfKVMyFs9IoRGu4jHVzERGpsuVX3NXz/ius0P7eFVCMN4akVZsuDEnGfgzyGjayRb4yRdLTcBgCTQNcKAVHU+l4Xh2ARY+LgqgPr3RxbUl/wCXuQTusg2RfPHeBfGWkadqCaNq874KxSMomnBcOTTAPIaIWiQe44odqLFl5MOJpy5OPkbXZNqTQRrIQzkAN221dEk8ULPQ5D+0xEAfpcGb4ewsjHcwqIJthBdWUkKbqyPc8n279Vl4l06FM6DRZs2Ms0TOZXkWTfsYE+laIO1vigbHwSZ8YeJsvTstBJqs8cLMAN7q7Oe1E+3YjsBz36qnOGTr2ojViMiFrBSEPuoEiiF2ggn3A7Dv2rosEbnG18pSsnaBtA5Unj7UdOxoPuePJC+MikCYWdxK+5YDig3HbvZ5PVcT5TQYQjfz3SdvVHwoLIx9V9zQPbjlifoXXN018zIIyhE8aDcig07kgWbABT4u2J3XY91fO0vHbPbBWACRDtXYpqW1rs1EkEe3cA+3PVNQaaIaljKv8Tf5BI6upqpf4x3heuNSzojGEOQs2VKC6hyLsJu2hWJ52hmq+3cAAUu/xjPo6mOOU+h6ZDIQoAoDaD7cdj9OkxvtH8MOWnl1ltNlw2KR4+bC34ibNx/EUbWB5qiGOwccjpWzfH2gDWY9PmzceSLJ4mzBMWhjRwNjlVscE8jhgSp4AJM42IlUrqplrghOHivxni65p8LZWGmQ8aPGCh8p1IBVWJA5ADH0m/mgwDKNw/tVxtE8NpizCRZcOQQhCfMcE2CwJ55Un6VQHsOkfVMqKKkx3CK5ISWbcCGG4WDtG+yPn1G+1GwavK8XmzzBfLUrJ+JaowazTWeT347nt0Qx2Hqws+oqHxO3NyU15WuHOjRtQ12KYzZFwxFt2yPceC3IsqSlDkWTZvjnxtXXGfZOWnZIxGu1TyVUC67n9O/+VfFyZPvyJ5jmMllIJFSCgPpX73XHHRRsrJDZE2OTky46VLEaY7yLFEdxweLJ/Xr1ukh5hzuUxYxx5mkyo3LTSt+IXa2FWAv6D2rjknuSSMzcPKw559Txd+RkvuWGMsFUCiasniz2quTzxZEOh6q+RKuHJi+YysGM8QO1SA/5rHHDVwSOV9+/Vr2qQYULGWUIIYzPIx4CqAQCTR4u+r7S3NrKNhe223gfXaSkPqJWmqRyvOrYGIVZ9oGyMNuUEMQAwP8Atb9iQe/KPO2bkLm/dcnyYmZp5ViTYClEEnYQL7jirscDm2DD8QZcVF5fOIN/i+q/37/360KRRaVq8mNgouPktjzGZiB5IUsXHN2eOO3L8Cup/UtFdp0Yladw7+PZdtl8Z5vwgeh4+DhYsZZY2cOVRpY7oFuVK0a4J5vg1Xz0czY4IwDPjKsj+rhK+ebI5PYe1j+vQGSOWVRkRBVjlcmnbkL8H5Nfvzfv136PG+sOceKSQvGqgXIGBbn8xPNcH6ijV3XWQGOlIY0XJRnTDZsIWvmQiZcrIg86I8Kv81XZK0eKHufp2BB6+yHJz4DjxA5CGUlmYkgqeXLAAmjtP04/oUfSFm1FtMWeli2s7JCFjWMljtq+44F9ra6PIG+oeJNF0iWV4WkzMpgoZywYWD6Rx6QRfer9zZ561aPQp6hxLiAAbHvGcJfeBhR5+tYvg/CXdH+POTudYn9YFUdvsSZB+w5o+kVt4u8cZPiaOPS8FZVg83zMmZwN06rRVaHZSQCRx7g2CSTubkT6ngahmZeSwiRGZGlttzopbuQQo459vSLI4tDytGmhCZEo8p59rxq1WBY7jnntwf7dV9NCIGmFhuG249uO/wC/aGXDK//Z'
+                        },
 
-                    //   }
+                        ...res.data.results.list
+                    ];
+                });
+        },
+        deleteScene(item) {
+            if (!item.id) {
+                return;
+            }
+            var labServer = this.$root.$labServer;
+            let url = labServer.server + "scenes/delete/" + item.id + "/";
+            axios
+                .post(url, {
+                    params: {}
+                })
+                .then(res => {
+                    console.log(res);
+                    if (res.data.message == "ok") {
+                        this.$root.$earthUI.promptInfo("删除场景成功:" + item.id);
+                        this.getSceneList();
+                    } else {
+                        this.$root.$earthUI.promptInfo("删除场景失败:" + item.id);
+                    }
                 });
         },
         cancel() {
-            this.show = false;
-            // this.hideOpenScene();
-
-            // if (this._imagelayer) this._imagelayer.destroy();
-            // this._imagelayer = undefined;
-            // this.selected = undefined;
+            // this.show = false;
+            this.hideOpenScene();
         },
         ok() {
-            // if (this.selectedUrl == "") {
-            //     //提示需要弹出url
-            //     this.error = this.lang.selectinput;
-            //     this.$root.$earthUI.promptInfo(this.error, "error");
-            // } else {
-            //     //构造imagerylay
+            if (this.selectScene) {
+                let id = this.selectScene.id;
+                this.$root.$earthUI.labScene.loadScene(id);
+            } else {
+                this.$root.$earthUI.promptInfo("未选中场景");
+            }
 
-            //     var url = this.selectedUrl;
-            //     if (this.selected && this.selected.requireField) {
-            //         if (!this.requireValue || this.requireValue == "") {
-            //             this.$root.$earthUI.promptInfo(
-            //                 "please input require value",
-            //                 "error"
-            //             );
-            //             return;
-            //         }
-            //         url += "&" + this.selected.requireField + "=" + this.requireValue;
-            //     }
-
-            //     var imageLayer = new XE.Obj.Imagery(this.$root.$earth);
-
-            //     imageLayer.xbsjImageryProvider = {
-            //         type: "XbsjImageryProvider",
-            //         XbsjImageryProvider: {
-            //             url: url,
-            //             srcCoordType: this.srcCoordType,
-            //             dstCoordType: this.dstCoordType
-            //         }
-            //     };
-
-            //     //添加到场景树中
-            //     this.$root.$earthUI.tools.sceneTree.addSceneObject(
-            //         imageLayer,
-            //         this.getName(this.selected)
-            //     );
-
-            //     this.show = false;
-            //     this.error = "";
             // this.hideOpenScene();
-            this.cancel();
+            // this.show = false;
             // }
         }
     },
@@ -96,27 +99,48 @@ export default {
 </script>
 
 <style scoped>
-.popup {
-    width: 420px;
-    height: 350px;
-}
-
-.sceneDes {
-    margin-top: 10px;
+.container {
+    height: 100%;
     display: flex;
+    padding: 0 0px 20px 20px;
+    flex-wrap: wrap;
+}
+
+.item {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 20px;
+    position: relative;
+    padding-top: 11px;
+    box-sizing: border-box;
 }
 
-.inputstyle {
-    height: 22px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 3px;
-    border: none;
-    color: #dddddd;
-    padding-left: 10px;
+.selectedItem {
+    border: 3px solid blue;
 }
 
-.inputstyle:focus {
-    outline: 1px solid rgba(31, 255, 255, 1);
+.closeitem {
+    position: absolute;
+    right: 18px;
+    top: -4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+    cursor: pointer;
+    z-index: 300;
+}
+
+.item-name {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 </style>

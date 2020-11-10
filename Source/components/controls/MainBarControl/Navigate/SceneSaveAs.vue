@@ -10,10 +10,7 @@
         <!--  修改原来是 @keyup.enter-->
         <textarea class="inputstyle" rows="2" v-model="sceneDes" @keyup="updateSceneDes" />
     </div>
-    <div style="margin-top:10px;">
-        <label>{{ lang.thumbnail }}:</label>
-        <XbsjCaptureThumbnail style="float:right;width: calc(100% - 55px);height: 96px;" :value="thumbnail" @changed="updateThumbNail"></XbsjCaptureThumbnail>
-    </div>
+
 </div>
 </template>
 
@@ -25,30 +22,25 @@ export default {
                 zh: {
                     sceneName: "场景名称",
                     sceneDes: "场景描述",
-                    thumbnail: "缩略图"
+
                 },
                 en: {
                     sceneName: "Scene Name",
                     sceneDes: "Scene Des",
-                    thumbnail: "Thumb"
+
                 }
             },
             lang: undefined,
             sceneName: "新建场景",
             sceneID: undefined,
             sceneDes: "场景描述信息",
-            thumbnail: ""
+
         };
     },
     created() {},
     mounted() {},
     methods: {
-        updateThumbNail(img) {
-            this.thumbnail = img;
-            // 另存场景雪碧图
-            // this.$root.$earthUI.labScene.updateThumbNail(img);
-            // this.$root.$earthUI.labScene.saveAsThumbNail(img);
-        },
+
         updateName() {
             // this.$root.$earthUI.labScene.updateName();
             this.$root.$earthUI.labScene.saveAsSceneInfo(this.paramsInfo);
@@ -64,7 +56,7 @@ export default {
             return {
                 name: this.sceneName,
                 summary: this.sceneDes,
-                thumbnail: this.thumbnail
+
             }
         },
     },

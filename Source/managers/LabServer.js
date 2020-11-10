@@ -246,7 +246,7 @@ class LabServer {
 
             resolve(res.data.result);
           } else {
-            reject(res.data.status);
+            reject(res.data.Status);
           }
         })
         .catch(error => {
@@ -272,7 +272,7 @@ class LabServer {
 
             resolve(res.data.result);
           } else {
-            reject(res.data.status);
+            reject(res.data.Status);
           }
         })
         .catch(error => {
@@ -289,14 +289,14 @@ class LabServer {
   queryScene (id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(this.server + "scene/?_id=" + id)
+        .get(this.server + "scenes/info/" + id+'/')
         .then(res => {
-          console.log(res);
-          if (res.status == 200 && res.data.status == "ok") {
+    
+          if (res.status == 200 && res.data.message == "ok") {
 
-            resolve(res.data.scenes.rows[0]);
+            resolve(res.data.results);
           } else {
-            reject(res.data.status);
+            reject(res.data.Status);
           }
         })
         .catch(error => {
@@ -305,6 +305,7 @@ class LabServer {
 
     });
   }
+  
   /**
   * 添加一个场景
   * @param {String} name  场景名称
@@ -315,14 +316,14 @@ class LabServer {
  
     return new Promise((resolve, reject) => {
       axios
-        .post(this.server + "scenes/info", QS.stringify(params))
+        .post(this.server + "scenes/info/", params)
         .then(res => {
           // console.log(res)
           if (res.status == 200 && res.data.message == "ok") {
           // alert(res.data.results.id);
             resolve(res.data.results.id);
           } else {
-            reject(res.data.status);
+            reject(res.data.Status);
           }
         })
         .catch(error => {
@@ -341,13 +342,13 @@ class LabServer {
   updateScene (id, params) {
     return new Promise((resolve, reject) => {
       axios
-        .post(this.server + "scenes/info/" + id +"/", QS.stringify(params))
+        .post(this.server + "scenes/info/" + id +"/", params)
         .then(res => {
           console.log(res);
           if (res.status == 200 && res.data.message == "ok") {
             resolve(true);
           } else {
-            reject(res.data.status);
+            reject(res.data.Status);
           }
         })
         .catch(error => {

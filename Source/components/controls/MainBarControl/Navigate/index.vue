@@ -6,7 +6,7 @@
             <span class="xbsj-list-name">{{lang.scene}}</span>
 
             <div class="xbsj-item-btnbox">
-                <div class="xbsj-item-btn savebutton" @click="togglePopup('openScene',null)"></div>
+                <div class="xbsj-item-btn openbutton" @click="togglePopup('openScene',null)"></div>
                 <span class="xbsj-item-name">{{lang.openScene}}</span>
             </div>
             <!--  <span class="xbsj-select" :class="{highlight:popup == 'openScene'}" @click.stop="togglePopup('openScene',$event)"></span>
@@ -19,7 +19,7 @@
             <!--场景另存 -->
 
             <div class="xbsj-item-btnbox">
-                <div class="xbsj-item-btn savebutton" @click="saveAsScene"></div>
+                <div class="xbsj-item-btn saveasbutton" @click="saveAsScene"></div>
                 <span class="xbsj-item-name">{{lang.saveAsscene}}</span>
             </div>
             <span class="xbsj-select" :class="{highlight:popup == 'sceneSaveAs'}" @click.stop="togglePopup('sceneSaveAs',$event)"></span>
@@ -152,10 +152,10 @@
     <PathFlyComp ref="pathFly" v-show="popup =='pathFly'"></PathFlyComp>
     <FirstPersonComp ref="firstPerson" v-show="popup =='firstPerson'"></FirstPersonComp>
     <PickObjectComp ref="pickObject" v-show="popup =='pickObject'"></PickObjectComp>
-    <SceneOpenComp ref="openScene" v-show="popup =='openScene'"></SceneOpenComp>
-    <!-- @hideOpenScene="hideOpenScene"  -->
-    <SceneSaveAsComp ref=" sceneView" v-show="popup =='sceneView'">
-    </SceneSaveAsComp>
+
+    <SceneOpenComp ref="openScene" v-if="popup =='openScene'" @hideOpenScene="hideOpenScene"></SceneOpenComp>
+
+    <SceneSaveAsComp ref="sceneView" v-show="popup =='sceneView'"> </SceneSaveAsComp>
     <SceneSaveAsComp ref="sceneSaveAs" v-show="popup =='sceneSaveAs'"></SceneSaveAsComp>
 </div>
 </template>
@@ -354,7 +354,6 @@ export default {
     },
     methods: {
         hideOpenScene() {
-            console.log(123);
             this.popup = '';
         },
         cameraattachbtn() {
@@ -793,6 +792,32 @@ export default {
 .savebutton.highlight,
 .savebutton:hover {
     background: url(../../../../images/savecj_on.png) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.openbutton {
+    background: url(../../../../images/open_default.png) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.openbutton.highlight,
+.openbutton:hover {
+    background: url(../../../../images/open_select.png) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.saveasbutton {
+    background: url(../../../../images/saveas_default.png) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.saveasbutton.highlight,
+.saveasbutton:hover {
+    background: url(../../../../images/saveas_select.png) no-repeat;
     background-size: contain;
     cursor: pointer;
 }
