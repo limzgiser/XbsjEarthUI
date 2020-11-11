@@ -155,10 +155,9 @@
 
     <SceneOpenComp ref="openScene" v-if="popup =='openScene'" @hideOpenScene="hideOpenScene"></SceneOpenComp>
 
-    <SceneComp ref="sceneView"     v-show="popup =='sceneView'"> </SceneComp>
+    <SceneComp ref="sceneView" v-show="popup =='sceneView'"> </SceneComp>
 
-
-    <SceneSaveAsComp ref="sceneSaveAs"  v-show="popup =='sceneSaveAs'"></SceneSaveAsComp>
+    <SceneSaveAsComp ref="sceneSaveAs" v-show="popup =='sceneSaveAs'"></SceneSaveAsComp>
 </div>
 </template>
 
@@ -215,13 +214,12 @@ export default {
             cameraAttached: false,
             cameraAttachOver: false,
             clicknum: -1,
-           
+
         };
     },
     created() {},
     mounted() {
 
-       
         //给所有popup的el上添加外部事件
         Object.keys(this.$refs).forEach(key => {
             addOutterEventListener(this.$refs[key].$el, "mousedown", el => {
@@ -365,11 +363,11 @@ export default {
             this.cameraAttached = false;
         },
         saveScene() {
-           
+
             this.$root.$earthUI.labScene.saveScene();
         },
         saveAsScene() {
-       
+
             this.$root.$earthUI.labScene.newScene();
         },
         flyToGlobe() {
