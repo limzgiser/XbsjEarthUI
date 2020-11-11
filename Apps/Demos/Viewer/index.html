@@ -54,6 +54,24 @@
                             }],
                         }]
                     }
+                },
+
+                "cameraViewManager": {
+                    "lastView": {
+                        "position": [
+                            2.1074792836098357,
+                            0.5522879977522437,
+                            4271.110735832548
+                        ],
+                        "rotation": [
+                            0.011599660828879088,
+                            -1.2968178032047,
+                            0.00012980341650425942
+                        ],
+                        "fov": 1.0471975511965976,
+                        "near": 0.1,
+                        "far": 10000000000
+                    }
                 }
             };
             earth.fromJson(earthJsonObject);
@@ -75,8 +93,8 @@
                 if (params.sceneID) {
                     searchObj.scene = params.sceneID;
                 }
-                if (params.labserver && params.labserver !==  serverpath
-                // '//localhost:9000/'
+                if (params.labserver && params.labserver !== serverpath
+                    // '//localhost:9000/'
                 ) {
                     searchObj.labserver = params.labserver;
                 }
@@ -101,29 +119,54 @@
             }
             //否则按照示例代码方法创建
             else {
-                earthUI.earth.sceneTree.root = {
-                    "children": [
-                        {
-                            "title": "场景树",
+
+
+                var earthJson = {
+                    "sceneTree": {
+                        "root": {
                             "children": [
                                 {
-                                    "czmObject": {
-                                        "name": "谷歌影像",
-                                        "xbsjType": "Imagery",
-                                        "xbsjImageryProvider": {
-                                            "XbsjImageryProvider": {
-                                           "url": '//mt1.google.cn/vt/lyrs=s,h&gl=cn&x={x}&y={y}&z={z}&s=Gali',
-                                                
-                                                "srcCoordType": "GCJ02",
-                                                "dstCoordType": "WGS84",
-                                            },
+                                    "title": "场景树",
+                                    "children": [
+                                        {
+                                            "czmObject": {
+                                                "name": "谷歌影像",
+                                                "xbsjType": "Imagery",
+                                                "xbsjImageryProvider": {
+                                                    "XbsjImageryProvider": {
+                                                        "url": '//mt1.google.cn/vt/lyrs=s,h&gl=cn&x={x}&y={y}&z={z}&s=Gali',
+
+                                                        "srcCoordType": "GCJ02",
+                                                        "dstCoordType": "WGS84",
+                                                    },
+                                                }
+                                            }
                                         }
-                                    }
-                                }
+                                    ]
+                                },
                             ]
-                        },
-                    ]
-                }  
+                        }
+                    },
+
+                    "cameraViewManager": {
+                        "lastView": {
+                            "position": [
+                                2.1074792836098357,
+                                0.5522879977522437,
+                                4271.110735832548
+                            ],
+                            "rotation": [
+                                0.011599660828879088,
+                                -1.2968178032047,
+                                0.00012980341650425942
+                            ],
+                            "fov": 1.0471975511965976,
+                            "near": 0.1,
+                            "far": 10000000000
+                        }
+                    }
+                }
+                earthUI.earth.xbsjFromJSON(earthJson);
             }
 
             if (urlOptions.lang) {

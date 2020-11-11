@@ -1,0 +1,401 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>常熟市时空三维可视化系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="scripts/jquery-1.6.2.js"></script>
+    <script src="scripts/jquery.cookie.js"></script>
+    <script src="scripts/jquery.md5.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-variant: tabular-nums;
+            line-height: 1.5;
+            color: rgba(0, 0, 0, .65);
+            background-color: #fff;
+        }
+
+        .auth-main {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #f8f8f8;
+        }
+
+        .ps--active-y {
+            position: static;
+            display: block;
+            width: inherit;
+            height: inherit;
+            max-width: inherit;
+            max-height: inherit;
+        }
+
+        .website-header {
+            height: 80px;
+            width: 100%;
+            background: #2178fd;
+        }
+
+        .website-header .website-inline {
+            margin: 62px auto;
+            width: 1024px;
+            padding-top: 20px;
+        }
+
+        .website-header img {
+            vertical-align: middle;
+        }
+
+        .website-header span {
+            margin-left: 10px;
+            vertical-align: middle;
+            font-size: 30px;
+            color: #01a0e1;
+            font-weight: bold;
+        }
+
+        .website-center {
+            width: 100%;
+            min-width: 1024px;
+            height: 75%;
+            min-height: 416px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url(./assets/login/BG_1px.png) 0 0/100% 100% no-repeat;
+        }
+
+        .website-background {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background: #2178FD;
+            background-position: center center;
+        }
+
+        .website-inline {
+            margin: 0 auto;
+            width: 1200px;
+            overflow: hidden;
+        }
+
+        .qrcode {
+            float: right;
+            margin-top: 195px;
+            width: 556px;
+            height: 556px;
+        }
+
+        .auth-block {
+            float: right;
+        }
+
+        .auth-block {
+            width: 318px;
+            height: 376px;
+            margin: 126px 164px 0 0;
+            padding: 0 25px;
+            border-radius: 4px;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .2);
+            background: #f8f8f8;
+        }
+
+        .auth-block h1 {
+            padding-top: 34px;
+            color: #000;
+            font-size: 18px;
+            margin: 0;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .form-account {
+            margin-top: 32px;
+        }
+
+        #input_account {
+            background: url(./assets/login/icon_user.png) 20px center no-repeat;
+        }
+
+        .form-control {
+            height: 50px;
+            width: 100%;
+            padding-left: 56px;
+            font-size: 14px;
+            border: 1px solid #d2d2d2;
+            border-radius: 3px;
+            color: #3d3d3d;
+        }
+
+        .form-password {
+            margin-top: 26px;
+        }
+
+        #input_password {
+            background: url(./assets/login/icon_password.png) 20px center no-repeat;
+        }
+
+        .form-checkbox {
+            display: flex;
+            height: 60px;
+            align-items: center;
+        }
+
+        .checkbox-img {
+            display: inline-flex;
+            width: 19px;
+            height: 19px;
+            background: url(./assets/login/icon2.png);
+            cursor: pointer;
+        }
+
+        .form-checkbox .checkbox-span {
+            display: flex;
+            padding-left: 16px;
+            color: #000;
+            font-size: 12px;
+            cursor: default;
+        }
+
+        #submit {
+            width: 100%;
+            height: 50px;
+            border: 0;
+            border-radius: 3px;
+            background: #ffc740;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 3px #e0ba55;
+            cursor: pointer;
+        }
+
+        #submit[_ngcontent-c3] span {
+            text-align: justify;
+            -moz-text-align-last: justify;
+            text-align-last: justify;
+            width: 70px;
+            display: inline-block;
+            margin: 0;
+        }
+
+        .btn-auth {
+            color: #fff !important;
+        }
+
+        .website-bottom {
+            height: 15%;
+            min-height: 92px;
+            width: 100%;
+        }
+
+        .website-bottom div {
+            margin: 80px auto;
+            font-size: 12px;
+            color: #3d3d3d;
+            width: 1024px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .website-bottom div span {
+            /*display: block;*/
+            margin-left: 30px;
+            width: 200px;
+            text-align: center;
+        }
+
+        .website-bottom div span a {
+
+            font-size: 12px;
+            color: #467CFE;
+
+            text-align: center;
+        }
+
+        .form-message {
+            margin-top: 20px;
+            color: red;
+            text-indent: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-main">
+        <div class="ps ps--active-y">
+            <div class="ps-content" style="height: 100%;">
+                <div class="website-header">
+                    <div class="website-inline">
+                        <img src="./assets/login/img_title_landing.png">
+
+                    </div>
+                </div>
+                <div class="website-center">
+                    <div class="website-background">
+                        <div class="website-inline">
+                            <div class="auth-block">
+                                <h1>欢迎登录</h1>
+                                <form class="form-horizontal ng-untouched ng-pristine ng-invalid" novalidate="">
+                                    <div class="row">
+                                        <div class="col-sm-12 form-account">
+                                            <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                id="input_account" placeholder="请输入账号" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 form-password">
+                                            <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                id="input_password" placeholder="请输入密码" type="password">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 form-checkbox" id="checkpsd">
+                                            <span id="checkbox-password" class="checkbox-img"></span>
+                                            <span class="checkbox-span">记住用户名</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 form-button">
+                                            <button class="btn btn-default btn-auth ant-btn" id="submit" nz-button=""
+                                                type="button">
+                                                <span>
+                                                    <span>登 录</span>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row message">
+                                        <div id="form-message" class="col-sm-12 form-message"> </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="qrcode"><img src="./assets/login/img_city.png"></div>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+                <div class="website-bottom">
+
+                    <div>
+                        <!-- <span>版权所有：©2020 相城区行政审批局</span>  -->
+                        <!-- <span>运维单位：苏州市相城数字科技有限公司</span>  -->
+                        <span>技术支持：苏州城方信息技术有限公司</span>
+
+
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+            </div>
+            <div class="ps__rail-y" style="top: 0px; right: 0px; height: 208px;">
+                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 72px;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.cookie('token', null, { path: '/' });
+
+        var isCheckpsd = $.cookie('ischeckpsd') == 'null' ? false : $.cookie('ischeckpsd');
+
+        if (isCheckpsd) {
+            $("#input_account").val(($.cookie('user') == 'null' || !$.cookie('user')) ? '' : $.cookie('user'));
+            $("#input_password").val(($.cookie('psw') == 'null' || !$.cookie('psw')) ? '' : $.cookie('psw'));
+            $("#checkbox-password")[0].style.backgroundPositionX = "-18px";
+        } else {
+            $("#checkbox-password")[0].style.backgroundPositionX = "0px";
+            $.cookie('token', null, { path: '/' });
+        }
+
+        $("#checkpsd").click(function () {
+            isCheckpsd = $.cookie('ischeckpsd');
+            if (!isCheckpsd || isCheckpsd == 'null') {
+                isCheckpsd = true;
+                $("#checkbox-password")[0].style.backgroundPositionX = "-18px";
+                $.cookie('ischeckpsd', true, { expires: 7, path: '/' });
+
+            } else {
+                isCheckpsd = false;
+                $("#checkbox-password")[0].style.backgroundPositionX = "0px";
+                $.cookie('ischeckpsd', null, { path: '/' });
+                $.cookie('token', null, { path: '/' });
+            }
+        });
+
+
+
+        $("#submit").click(function () {
+            var input_account = $.trim($("#input_account").val());
+            var input_password = $.trim($("#input_password").val());
+            if (input_account === '') {
+                $("#form-message").text('用户名不能为空！');
+                return;
+            }
+            if (input_password === '') {
+                $("#form-message").text('密码不能为空！');
+                return;
+            }
+            if (input_account == 'guest' && $.md5(input_password) == '1c63129ae9db9c60c3e8aa94d3e00495') {
+                window.location.href = './index.html'
+            } else {
+                $("#form-message").text('账号密码错误!');
+            }
+
+            // $.ajax({
+            //     type: "get",
+            //     contentType: "application/json;charset=UTF-8",
+            //     url: "config.json",
+            //     success: function (res) {
+            //         var loginApi = res.loginApi
+            //         var formData = new FormData();
+            //         var psw = $.md5(input_password);
+            //         psw = ($.cookie('psw') == 'null' || !$.cookie('psw')) ? psw : $.cookie('psw');
+            //         formData.append("account", input_account);
+            //         formData.append("password", psw);
+            //         $.ajax({
+            //             type: "post",
+            //             processData: false,  // 不处理数据
+            //             contentType: false,   // 不设置内容类型
+            //             url: loginApi,
+            //             data: formData,
+            //             success: function (res) {
+            //                 if (res.status.code == 200) {
+            //                     $.cookie('token', res.data.Token,{expires: 7, path: '/'});
+            //                     if (isCheckpsd) {
+            //                         $.cookie('ischeckpsd', true ,{expires: 7, path: '/'});
+            //                         $.cookie('user', input_account,{expires: 7, path: '/'});
+            //                         $.cookie('psw', psw,{expires: 7, path: '/'});
+            //                     } else {
+            //                         $.cookie('user', null, { path: '/' });
+            //                         $.cookie('psw', null, { path: '/' });
+            //                     }
+            //                     window.location.href = './index.html'
+            //                 } else {
+            //                     $("#form-message").text(res.status.desc);
+            //                 }
+            //             }
+            //         });
+            //     }
+            // });
+        })
+
+        $(document).keypress(function (e) {
+            if (e.keyCode == 13) {
+                $("#submit").click();
+            }
+        })
+    })
+</script>
