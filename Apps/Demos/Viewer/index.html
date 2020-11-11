@@ -32,6 +32,17 @@
 
     <script>
         // console.log = function(){}
+        let isLogin = sessionStorage.getItem('isLogin');
+        if (!isLogin) {
+            var params = window.location.href.split('?scene=');
+            if (params.length > 1) {
+                var url = './login.html?scene=' + params[1];
+                window.location.href = url;
+            } else {
+                window.location.href = '/login.html';
+            }
+
+        }
         var xbsjEarthUI = undefined;
 
         function initEarthWithTilesetUrl(earth, tilesetUrl, tilesetTitle) {

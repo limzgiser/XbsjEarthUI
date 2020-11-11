@@ -22,7 +22,16 @@ export default {
     computed: {},
     methods: {
         exitlogin() {
-            window.location.href = "./login.html";
+            sessionStorage.removeItem("isLogin");
+
+            var params = window.location.href.split('?scene=');
+            if (params.length > 1) {
+                var url = './login.html?scene=' + params[1];
+                window.location.href = url;
+            } else {
+                window.location.href = './login.html';
+            }
+
         },
         switchFullScreen() {
             screenfull.toggle();

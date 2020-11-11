@@ -349,7 +349,17 @@
                 return;
             }
             if (input_account == 'guest' && $.md5(input_password) == '1c63129ae9db9c60c3e8aa94d3e00495') {
-                window.location.href = './index.html'
+                sessionStorage.setItem('isLogin', true)
+
+
+                var params = window.location.href.split('?scene=');
+                if (params.length > 1) {
+                    var url = './index.html?scene=' + params[1];
+                    window.location.href = url;
+                } else {
+                    window.location.href = './index.html';
+                }
+
             } else {
                 $("#form-message").text('账号密码错误!');
             }
