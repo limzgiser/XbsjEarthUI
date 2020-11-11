@@ -16,6 +16,7 @@
 
 <script>
 export default {
+ 
     data() {
         return {
             langs: {
@@ -25,7 +26,7 @@ export default {
 
                 },
                 en: {
-                    sceneName: "Scene Name",
+                    sceneName: "SceneName",
                     sceneDes: "Scene Des",
 
                 }
@@ -33,12 +34,15 @@ export default {
             lang: undefined,
             sceneName: "新建场景",
             sceneID: undefined,
-            sceneDes: "场景描述信息",
+            sceneDes: "场景描述信息"
+      
 
         };
     },
     created() {},
-    mounted() {},
+    mounted() {
+       
+    },
     methods: {
 
         updateName() {
@@ -59,6 +63,9 @@ export default {
 
             }
         },
+    },
+   watch: {
+       
     },
 
     beforeDestroy() {}

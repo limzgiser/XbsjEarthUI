@@ -497,7 +497,7 @@ class MainUI {
       ({ type, xbsjObj }) => {
         if (type === "destroy") {
           const index = this._vm.$refs.mainUI.tools.findIndex(
-            e => e.item && e.item() === xbsjObj
+            e => e && e.item && e.item() === xbsjObj
           );
           if (index >= 0) this._vm.$refs.mainUI.tools.splice(index, 1);
         }

@@ -71,8 +71,9 @@ class LabServer {
       axios
         .get(this.server + "other/geocoder?key=" + key)
         .then(res => {
-          if (res.status == 200 && res.data.status == "ok") {
-            resolve(res.data.result);
+          console.log(res);
+          if (res.data.Status == 0) {
+            resolve(res.data.results);
           } else {
             reject(res.data.status);
           }
@@ -292,7 +293,7 @@ class LabServer {
         .get(this.server + "scenes/info/" + id+'/')
         .then(res => {
     
-          if (res.status == 200 && res.data.message == "ok") {
+          if (res.data.Status == 0) {
 
             resolve(res.data.results);
           } else {
@@ -319,7 +320,7 @@ class LabServer {
         .post(this.server + "scenes/info/", params)
         .then(res => {
           // console.log(res)
-          if (res.status == 200 && res.data.message == "ok") {
+          if (res.data.Status == 0) {
           // alert(res.data.results.id);
             resolve(res.data.results.id);
           } else {
@@ -340,12 +341,13 @@ class LabServer {
 * @returns {Promise}  
 */
   updateScene (id, params) {
+     
     return new Promise((resolve, reject) => {
       axios
         .post(this.server + "scenes/info/" + id +"/", params)
         .then(res => {
-          console.log(res);
-          if (res.status == 200 && res.data.message == "ok") {
+       
+          if (res.data.Status == 0) {
             resolve(true);
           } else {
             reject(res.data.Status);
