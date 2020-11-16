@@ -1,7 +1,7 @@
 const zh = {
   plotlibrary: '标绘库',
   online: '在线分享',
-  localhost: 'Lab内置',
+  localhost: '在线',
   custom: '自定义',
   routine: "常规",
   pin: "图标点",
@@ -72,7 +72,7 @@ const zh = {
 const en = {
   plotlibrary: 'plotlibrary',
   online: 'Online',
-  localhost: 'Lab',
+  localhost: 'zaixian',
   custom: 'Custom',
   routine: "routine",
   pin: "Built icon",

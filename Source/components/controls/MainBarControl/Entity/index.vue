@@ -11,28 +11,28 @@
       <div class="xbsj-list-item">
         <span class="xbsj-list-name">{{lang.plotlibrary}}</span>
         <!-- 在线 -->
-        <div class="xbsj-item-btnbox ml20">
+        <!-- <div class="xbsj-item-btnbox ml20">
           <div
             class="xbsj-item-btn onlinebutton"
             @click="OnlineSymbolShow=!OnlineSymbolShow"
             :class="{highlight:OnlineSymbolShow}"
           ></div>
           <span class="xbsj-item-name">{{lang.online}}</span>
-        </div>
+        </div> -->
         <!-- Lab内置 -->
         <div class="xbsj-item-btnbox" @click="LabSymbolShow=!LabSymbolShow">
           <div class="xbsj-item-btn localhostbutton" :class="{highlight:LabSymbolShow}"></div>
           <span class="xbsj-item-name">{{lang.localhost}}</span>
         </div>
         <!-- 自定义 -->
-        <div class="xbsj-item-btnbox">
+        <!-- <div class="xbsj-item-btnbox">
           <div
             class="xbsj-item-btn symbolbutton"
             @click="CustomSymbolShow=!CustomSymbolShow"
             :class="{highlight:CustomSymbolShow}"
           ></div>
           <span class="xbsj-item-name">{{lang.custom}}</span>
-        </div>
+        </div> -->
       </div>
       <div class="xbsj-list-item">
         <span class="xbsj-list-name">{{lang.routine}}</span>

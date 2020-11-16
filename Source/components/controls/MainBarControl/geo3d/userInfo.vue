@@ -1,6 +1,8 @@
 <template>
 <div class="login-info-pancel">
-    <span class="login-g1">当前用户：管理员</span>
+
+    <span class="login-g1">当前用户：</span>
+      <span class="login-name">管理员</span>
     <span class="login-g2 exit" @click="exitlogin()">退出</span>
     <div class="login-g2 full-screen" @click="switchFullScreen()">
         <img :src="require('../../../../images/geo3d/icon_fullscreen.png')" />
@@ -51,7 +53,13 @@ export default {
 }
 
 .login-info-pancel>span {
-    margin-left: 10px;
+ 
+}
+.login-name{
+    
+    border-bottom:1px solid #fff;
+ 
+    
 }
 
 .login-g1 {

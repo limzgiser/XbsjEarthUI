@@ -84,8 +84,14 @@ export default {
       labServer
         .getSymbol(id)
         .then(result => {
-          if (result.status === "ok" && result.symbols.rows.length === 1) {
-            var group = JSON.parse(result.symbols.rows[0].content);
+          // if (result.status === "ok" && result.symbols.rows.length === 1) {
+          //   var group = JSON.parse(result.symbols.rows[0].content);
+          //   var treeRoot = self.initTreeNode(group);
+          //   treeRoot.expand = true;
+          //   self.tree = [treeRoot];
+          // }
+           if (result.status === 0 && result.results.length === 1) {
+            var group = result.results[0];
             var treeRoot = self.initTreeNode(group);
             treeRoot.expand = true;
             self.tree = [treeRoot];
@@ -151,8 +157,8 @@ export default {
         labServer
           .getSymbols(ids)
           .then(result => {
-            if (result.status === "ok") {
-              self.symbols = result.symbols.rows;
+            if (result.status === 0) {
+              self.symbols = result.results;
             }
           })
           .catch(err => {

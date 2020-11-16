@@ -39,7 +39,7 @@
                 var url = './login.html?scene=' + params[1];
                 window.location.href = url;
             } else {
-                window.location.href = '/login.html';
+                window.location.href = './login.html';
             }
 
         }
@@ -130,54 +130,49 @@
             }
             //否则按照示例代码方法创建
             else {
-
-
-                var earthJson = {
-                    "sceneTree": {
-                        "root": {
+                earthUI.earth.sceneTree.root = {
+                    "children": [
+                        {
+                            "title": "新建场景",
                             "children": [
                                 {
-                                    "title": "场景树",
-                                    "children": [
-                                        {
-                                            "czmObject": {
-                                                "name": "谷歌影像",
-                                                "xbsjType": "Imagery",
-                                                "xbsjImageryProvider": {
-                                                    "XbsjImageryProvider": {
-                                                        "url": '//mt1.google.cn/vt/lyrs=s,h&gl=cn&x={x}&y={y}&z={z}&s=Gali',
-
-                                                        "srcCoordType": "GCJ02",
-                                                        "dstCoordType": "WGS84",
-                                                    },
-                                                }
-                                            }
+                                
+                                    "czmObject": {
+                                        "name": "谷歌影像",
+                                        "xbsjType": "Imagery",
+                                        "xbsjImageryProvider": {
+                                            "XbsjImageryProvider": {
+                                                "url": "//mt1.google.cn/vt/lyrs=s,h&gl=cn&x={x}&y={y}&z={z}&s=Gali",
+                                                "srcCoordType": "GCJ02",
+                                                "dstCoordType": "WGS84",
+                                            },
                                         }
-                                    ]
-                                },
+                                    }
+                                }
                             ]
-                        }
-                    },
-
-                    "cameraViewManager": {
-                        "lastView": {
-                            "position": [
-                                2.1074792836098357,
-                                0.5522879977522437,
-                                4271.110735832548
-                            ],
-                            "rotation": [
-                                0.011599660828879088,
-                                -1.2968178032047,
-                                0.00012980341650425942
-                            ],
-                            "fov": 1.0471975511965976,
-                            "near": 0.1,
-                            "far": 10000000000
-                        }
-                    }
+                        },
+                    ]
                 }
-                earthUI.earth.xbsjFromJSON(earthJson);
+        var camera =     {
+        "position": [120.766, 31.667, 900],
+        "pitch": -45.77667031556409,
+        "heading": 16.692613541711115,
+        "roll": 0.0
+      };
+               
+               earthUI.earth.czm.viewer.camera.setView({
+      destination: Cesium.Cartesian3.fromDegrees(
+       camera. position[0],
+          camera.  position[1],
+          camera.  position[2]
+      ),
+      orientation: {
+        heading: Cesium.Math.toRadians(   camera. heading), // east, default value is 0.0 (north)
+        pitch: Cesium.Math.toRadians(   camera. pitch), // default value (looking down)
+        roll:    camera. roll, // default value
+      },
+    });
+ 
             }
 
             if (urlOptions.lang) {

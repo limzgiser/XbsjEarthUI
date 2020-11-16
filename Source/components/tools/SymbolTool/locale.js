@@ -1,6 +1,6 @@
 const zh = {
   customtitle: "自定义标绘库",
-  labtitle: "CesiumLab标绘库",
+  labtitle: "在线标绘库",
   online: {
     title: "在线分享标绘",
     label: "标签",

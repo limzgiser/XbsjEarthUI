@@ -268,7 +268,7 @@ class LabScene {
 		var jc = this._root.earth.toJSON();
 		var labServer = this._root.labServer;
 		var self = this;
-
+		console.log(jc.cameraViewManager)
 		this._root.earth.capture(64, 64).then((img) => {
 			var params = {
 				name: self.saveAsSceneParams.name || '新建场景',

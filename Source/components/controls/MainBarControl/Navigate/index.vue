@@ -25,7 +25,7 @@
             <span class="xbsj-select" :class="{highlight:popup == 'sceneSaveAs'}" @click.stop="togglePopup('sceneSaveAs',$event)"></span>
 
         </div>
-        <div class="xbsj-list-item">
+        <!-- <div class="xbsj-list-item">
             <span class="xbsj-list-name">{{lang.view}}</span>
             <div class="xbsj-item-btnbox">
                 <div class="xbsj-item-btn globalbutton" @click="flyToGlobe"></div>
@@ -44,7 +44,7 @@
                 <span class="xbsj-item-name">{{lang.custom}}</span>
             </div>
             <span class="xbsj-select" :class="{highlight:cameraViewManagerShow}" @click.stop="toggleCameraViewManager()"></span>
-        </div>
+        </div> -->
         <div class="xbsj-list-item">
             <span class="xbsj-list-name">{{lang.location}}</span>
             <input type="text" class="xbsj-search-box" @keyup.enter="search" v-model="key" />
@@ -371,6 +371,7 @@ export default {
             this.$root.$earthUI.labScene.newScene();
         },
         flyToGlobe() {
+
             this.$root.$earth.cameraViewManager.globe.flyTo();
         },
         flyToChina() {

@@ -18,14 +18,14 @@
           ></div>
           <span class="xbsj-item-name">{{lang.online}}</span>
         </div>
-        <div class="xbsj-item-btnbox" v-show="labServiceUI">
+        <!-- <div class="xbsj-item-btnbox" v-show="labServiceUI">
           <div
             class="xbsj-item-btn localhostbutton"
             @click="terrainLab=!terrainLab"
             :class="{highlight:terrainLab}"
           ></div>
           <span class="xbsj-item-name">{{lang.localhost}}</span>
-        </div>
+        </div> -->
         <div class="xbsj-item-btnbox" v-show="cloudServiceUI">
           <div
             class="xbsj-item-btn localhostbutton"

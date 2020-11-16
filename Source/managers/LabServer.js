@@ -72,7 +72,7 @@ class LabServer {
         .get(this.server + "other/geocoder?key=" + key)
         .then(res => {
           console.log(res);
-          if (res.data.Status == 0) {
+          if (res.data.status == 0) {
             resolve(res.data.results);
           } else {
             reject(res.data.status);
@@ -186,7 +186,7 @@ class LabServer {
       axios
         .put(this.server + "other/thumbnail/" + type + "/" + id, QS.stringify({ thumbnail: img }))
         .then(res => {
-          console.log(res);
+        
           if (res.status == 200 && res.data.status == "ok") {
 
             resolve(res.data.result);
@@ -205,7 +205,25 @@ class LabServer {
     * @returns {Promise}  
     */
   styles (key) {
-    return this._layers('style', key, 'date', 'asc');
+    return   new Promise((resolve, reject) => {
+      axios
+        .get(this.server + "online/styles3d/")
+        .then(res => {
+     console.log(res)
+          if (res.status == 200) {
+
+            resolve(res.data.results);
+          } else {
+            reject(res.status);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+    
+    
+    //this._layers('style', key, 'date', 'asc');
   }
   /**
     * 新建样式
@@ -217,12 +235,11 @@ class LabServer {
   newStyle (name, code, thumbnail) {
     return new Promise((resolve, reject) => {
       axios
-        .post(this.server + "style", QS.stringify({ name: name, code: code, thumbnail: thumbnail }))
+        .post(this.server + "online/styles3d/",{ name: name, code: code, thumbnail: thumbnail })
         .then(res => {
-          console.log(res);
-          if (res.status == 200 && res.data.status == "ok") {
-
-            resolve(res.data.result);
+         
+          if (res.status == 200 && res.data.status ==0 ) {
+            resolve(res.data.results);
           } else {
             reject(res.data.status);
           }
@@ -240,14 +257,13 @@ class LabServer {
   deleteStyle (id) {
     return new Promise((resolve, reject) => {
       axios
-        .delete(this.server + "style/" + id)
+        .delete(this.server + "online/styles3d/" + id+'/')
         .then(res => {
           console.log(res);
-          if (res.status == 200 && res.data.status == "ok") {
-
-            resolve(res.data.result);
+          if (res.status == 200) {
+            resolve(res.data.results);
           } else {
-            reject(res.data.Status);
+            reject(res.data.status);
           }
         })
         .catch(error => {
@@ -273,7 +289,7 @@ class LabServer {
 
             resolve(res.data.result);
           } else {
-            reject(res.data.Status);
+            reject(res.data.status);
           }
         })
         .catch(error => {
@@ -293,11 +309,11 @@ class LabServer {
         .get(this.server + "scenes/info/" + id+'/')
         .then(res => {
     
-          if (res.data.Status == 0) {
+          if (res.data.status == 0) {
 
             resolve(res.data.results);
           } else {
-            reject(res.data.Status);
+            reject(res.data.status);
           }
         })
         .catch(error => {
@@ -320,11 +336,11 @@ class LabServer {
         .post(this.server + "scenes/info/", params)
         .then(res => {
           // console.log(res)
-          if (res.data.Status == 0) {
+          if (res.data.status == 0) {
           // alert(res.data.results.id);
             resolve(res.data.results.id);
           } else {
-            reject(res.data.Status);
+            reject(res.data.status);
           }
         })
         .catch(error => {
@@ -347,10 +363,10 @@ class LabServer {
         .post(this.server + "scenes/info/" + id +"/", params)
         .then(res => {
        
-          if (res.data.Status == 0) {
+          if (res.data.status == 0) {
             resolve(true);
           } else {
-            reject(res.data.Status);
+            reject(res.data. status);
           }
         })
         .catch(error => {
@@ -367,14 +383,15 @@ class LabServer {
     var self = this
     return new Promise((resolve, reject) => {
       axios
-        .get(this.server + "symbol/group?id=" + id)
+        .get(this.server + "online/symbols/")
         .then(res => {
-          if (res.status === 200) {
-            if (res.data.symbols.rows.length === 1) {
-              var group = res.data.symbols.rows[0]
-              if (id === this.symbolGroupId) {
-                self.symbolContent = JSON.parse(group.content)
-              }
+          console.log(res);
+          if (res.data.status == 0 ) {
+            if (res.data.results.length === 1) {
+              var group = res.data.results[0]
+               
+                self.symbolContent = group;
+              
             }
             resolve(res.data);
           } else {
@@ -416,10 +433,11 @@ class LabServer {
   getSymbols (ids) {
     return new Promise((resolve, reject) => {
       axios
-        .post(this.server + "symbol/list", QS.stringify({
+        .post(this.server + "online/symbols/", {
           ids: ids
-        }))
+        })
         .then(res => {
+          // console.log(res)
           if (res.status === 200) {
             resolve(res.data);
           } else {
