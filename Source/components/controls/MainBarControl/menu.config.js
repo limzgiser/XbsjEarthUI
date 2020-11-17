@@ -12,7 +12,6 @@ export default {
 			view: '视角',
 			global: '全球',
 			china: '中国',
-			 
 			custom: '自定义',
 		},
 		location: {
