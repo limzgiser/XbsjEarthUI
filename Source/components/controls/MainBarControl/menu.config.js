@@ -10,8 +10,8 @@ export default {
 		view: {
 			label: '视角',
 			view: '视角',
-			global: '全球',
-			china: '中国',
+			// global: '全球',
+			// china: '中国',
 			custom: '自定义',
 		},
 		location: {
@@ -77,31 +77,31 @@ export default {
 	// 	},
 	// },
 
-	model: {
-		name: '瓦片',
-		source: {
-			label: '数据源',
-			online: '在线',
-		},
-		edit: {
-			fenleimmodel: '分类瓦片',
-			fenleiterrain: '分类地形',
-			style: '样式',
-			move: '移动',
-			rotate: '旋转',
-			view: '视口',
-			techonlogy: '科技感',
-			SkipLOD: 'SkipLOD',
-			debugShowBoundingVolume: '调试包围盒',
-		},
-		visible: {
-			label: '可视化',
-			accuracy: '显示精度',
-			material: '材质底色',
-			scatter: '散射强度',
-			maximumMemoryUsage: '最大内存',
-		},
-	},
+	// model: {
+	// 	name: '瓦片',
+	// 	source: {
+	// 		label: '数据源',
+	// 		online: '在线',
+	// 	},
+	// 	edit: {
+	// 		fenleimmodel: '分类瓦片',
+	// 		fenleiterrain: '分类地形',
+	// 		style: '样式',
+	// 		move: '移动',
+	// 		rotate: '旋转',
+	// 		view: '视口',
+	// 		techonlogy: '科技感',
+	// 		SkipLOD: 'SkipLOD',
+	// 		debugShowBoundingVolume: '调试包围盒',
+	// 	},
+	// 	visible: {
+	// 		label: '可视化',
+	// 		accuracy: '显示精度',
+	// 		material: '材质底色',
+	// 		scatter: '散射强度',
+	// 		maximumMemoryUsage: '最大内存',
+	// 	},
+	// },
 
 	// terrain: {
 	// 	name: ' 地形',

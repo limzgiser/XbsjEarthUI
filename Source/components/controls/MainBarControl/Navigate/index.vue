@@ -8,16 +8,16 @@
       @mousemove="onMoving($event)"
       @mouseup="endMove($event)"
     >
-      <div class="xbsj-list-item" v-show="labServiceUI"  v-if="menuConfig&&menuConfig.navigate &&menuConfig.navigate.scene">
-        <span
-       
-          class="xbsj-list-name"
-          >{{ lang.scene }}</span
-        >
+      <div
+        class="xbsj-list-item"
+        v-show="labServiceUI"
+        v-if="menuConfig && menuConfig.navigate && menuConfig.navigate.scene"
+      >
+        <span class="xbsj-list-name">{{ lang.scene }}</span>
 
         <div
           class="xbsj-item-btnbox"
-        v-if="menuConfig.navigate.scene.openScene"
+          v-if="menuConfig.navigate.scene.openScene"
         >
           <div
             class="xbsj-item-btn openbutton"
@@ -27,12 +27,12 @@
         </div>
         <!--  <span class="xbsj-select" :class="{highlight:popup == 'openScene'}" @click.stop="togglePopup('openScene',$event)"></span>
     -->
-        <div class="xbsj-item-btnbox"   v-if="menuConfig.navigate.scene.save">
+        <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.scene.save">
           <div class="xbsj-item-btn savebutton" @click="saveScene"></div>
           <span class="xbsj-item-name">{{ lang.save }}</span>
         </div>
         <span
-         v-if="menuConfig.navigate.scene.save"
+          v-if="menuConfig.navigate.scene.save"
           class="xbsj-select"
           :class="{ highlight: popup == 'sceneView' }"
           @click.stop="togglePopup('sceneView', $event)"
@@ -41,61 +41,67 @@
 
         <div
           class="xbsj-item-btnbox"
-         v-if="menuConfig.navigate.scene.saveAsscene"
+          v-if="menuConfig.navigate.scene.saveAsscene"
         >
           <div class="xbsj-item-btn saveasbutton" @click="saveAsScene"></div>
           <span class="xbsj-item-name">{{ lang.saveAsscene }}</span>
         </div>
         <span
           class="xbsj-select"
-       v-if="menuConfig.navigate.scene.saveAsscene"
+          v-if="menuConfig.navigate.scene.saveAsscene"
           :class="{ highlight: popup == 'sceneSaveAs' }"
           @click.stop="togglePopup('sceneSaveAs', $event)"
         ></span>
       </div>
-      <div class="xbsj-list-item"  v-if="menuConfig.navigate.view">
-        <span class="xbsj-list-name"  >{{
-          lang.view
-        }}</span>
-        <div
-          class="xbsj-item-btnbox"
-         v-if="menuConfig.navigate.view.global"
-        >
+      <div class="xbsj-list-item" v-if="menuConfig.navigate.view">
+        <span class="xbsj-list-name">{{ lang.view }}</span>
+        <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.view.global">
           <div class="xbsj-item-btn globalbutton" @click="flyToGlobe"></div>
           <span class="xbsj-item-name">{{ lang.global }}</span>
         </div>
         <span
-          class="xbsj-select"   v-if="menuConfig.navigate.view.global"
+          class="xbsj-select"
+          v-if="menuConfig.navigate.view.global"
           :class="{ highlight: popup == 'globeView' }"
           @click.stop="togglePopup('globeView', $event)"
         ></span>
 
-        <div class="xbsj-item-btnbox"   v-if="menuConfig.navigate.view.china">
+        <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.view.china">
           <div class="xbsj-item-btn chinabutton" @click="flyToChina"></div>
           <span class="xbsj-item-name">{{ lang.china }}</span>
         </div>
         <span
-          class="xbsj-select"  v-if="menuConfig.navigate.view.china"
+          class="xbsj-select"
+          v-if="menuConfig.navigate.view.china"
           :class="{ highlight: popup == 'chinaView' }"
           @click.stop="togglePopup('chinaView', $event)"
         ></span>
 
- 
+        <div class="xbsj-item-btnbox">
+          <div class="xbsj-item-btn chinabutton" @click="flyToCChina"></div>
+          <span class="xbsj-item-name">中国</span>
+        </div>
+        <div class="xbsj-item-btnbox">
+          <div class="xbsj-item-btn globalbutton" @click="flyToChangShu"></div>
+          <span class="xbsj-item-name">常熟</span>
+        </div>
 
-      <!-- 自定义       -->
+        <!-- 自定义       -->
         <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.view.custom">
           <div class="xbsj-item-btn custombutton" @click="flyToCustom"></div>
           <span class="xbsj-item-name">{{ lang.custom }}</span>
         </div>
         <span
-          class="xbsj-select" v-if="menuConfig.navigate.view.custom"
+          class="xbsj-select"
+          v-if="menuConfig.navigate.view.custom"
           :class="{ highlight: cameraViewManagerShow }"
           @click.stop="toggleCameraViewManager()"
         ></span>
-
- 
       </div>
-      <div class="xbsj-list-item" v-if="menuConfig&&menuConfig.navigate.location">
+      <div
+        class="xbsj-list-item"
+        v-if="menuConfig && menuConfig.navigate.location"
+      >
         <span class="xbsj-list-name">{{ lang.location }}</span>
         <input
           type="text"
@@ -124,9 +130,15 @@
           <span class="xbsj-item-name">{{lang.location}}</span>
         </div>
       </div>-->
-      <div class="xbsj-list-item" v-if="menuConfig&&menuConfig.navigate.autofly" >
-        <span class="xbsj-list-name" >{{ lang.autofly }}</span>
-        <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.autofly.globalrotation">
+      <div
+        class="xbsj-list-item"
+        v-if="menuConfig && menuConfig.navigate.autofly"
+      >
+        <span class="xbsj-list-name">{{ lang.autofly }}</span>
+        <div
+          class="xbsj-item-btnbox"
+          v-if="menuConfig.navigate.autofly.globalrotation"
+        >
           <div
             class="xbsj-item-btn globalrotationbutton"
             :class="{ highlight: cameraMode == 'rotateGlobe' }"
@@ -135,11 +147,15 @@
           <span class="xbsj-item-name">{{ lang.globalrotation }}</span>
         </div>
         <span
-          class="xbsj-select" v-if="menuConfig.navigate.autofly.rotateGlobe"
+          class="xbsj-select"
+          v-if="menuConfig.navigate.autofly.rotateGlobe"
           :class="{ highlight: popup == 'rotateGlobe' }"
           @click.stop="togglePopup('rotateGlobe', $event)"
         ></span>
-        <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.autofly.centerrotation">
+        <div
+          class="xbsj-item-btnbox"
+          v-if="menuConfig.navigate.autofly.centerrotation"
+        >
           <div
             class="xbsj-item-btn centerrotationbutton"
             :class="{ highlight: cameraMode == 'rotateCenter' }"
@@ -148,7 +164,8 @@
           <span class="xbsj-item-name">{{ lang.centerrotation }}</span>
         </div>
         <span
-          class="xbsj-select" v-if="menuConfig.navigate.autofly.centerrotation"
+          class="xbsj-select"
+          v-if="menuConfig.navigate.autofly.centerrotation"
           :class="{ highlight: popup == 'rotateCenter' }"
           @click.stop="togglePopup('rotateCenter', $event)"
         ></span>
@@ -156,15 +173,16 @@
         <div
           class="xbsj-item-btnbox"
           ref="cameraAttach"
-          @click="cameraattachbtn" v-if="menuConfig.navigate.autofly.cameraattach"
+          @click="cameraattachbtn"
+          v-if="menuConfig.navigate.autofly.cameraattach"
         >
-          <div 
+          <div
             class="xbsj-item-btn cameraattachbutton"
             :class="{
               cameraattachbuttonActive: cameraAttached || cameraAttachOver
             }"
           ></div>
-          <span    class="xbsj-item-name">{{ lang.cameraattach }}</span>
+          <span class="xbsj-item-name">{{ lang.cameraattach }}</span>
         </div>
         <!--
         <div class="xbsj-item-btnbox">
@@ -196,48 +214,73 @@
         ></span>
         -->
       </div>
-      <div class="xbsj-list-item xbsj-list-lastitem" v-if="menuConfig&&menuConfig.navigate.interactivemode" >
-        <span class="xbsj-list-name"   >{{ lang.interactivemode }}</span>
-        <div v-if="menuConfig.navigate.interactivemode.default" class="xbsj-item-btnbox" @click="useCesiumNavigator = true">
+      <div
+        class="xbsj-list-item xbsj-list-lastitem"
+        v-if="menuConfig && menuConfig.navigate.interactivemode"
+      >
+        <span class="xbsj-list-name">{{ lang.interactivemode }}</span>
+        <div
+          v-if="menuConfig.navigate.interactivemode.default"
+          class="xbsj-item-btnbox"
+          @click="useCesiumNavigator = true"
+        >
           <div
             class="xbsj-item-btn defaultbutton"
             :class="{ defaultbuttonActive: useCesiumNavigator }"
           ></div>
           <span class="xbsj-item-name">{{ lang.default }}</span>
         </div>
-        <div v-if="menuConfig.navigate.interactivemode.gooleearth" class="xbsj-item-btnbox" @click="useCesiumNavigator = false">
+        <div
+          v-if="menuConfig.navigate.interactivemode.gooleearth"
+          class="xbsj-item-btnbox"
+          @click="useCesiumNavigator = false"
+        >
           <div
             class="xbsj-item-btn gooleearthbutton"
             :class="{ gooleearthbuttonActive: !useCesiumNavigator }"
           ></div>
           <span class="xbsj-item-name">{{ lang.gooleearth }}</span>
         </div>
-        <div v-if="menuConfig.navigate.interactivemode.firstperson"   class="xbsj-item-btnbox" @click="ghostMode = !ghostMode">
+        <div
+          v-if="menuConfig.navigate.interactivemode.firstperson"
+          class="xbsj-item-btnbox"
+          @click="ghostMode = !ghostMode"
+        >
           <div
             class="xbsj-item-btn firstpersonbutton"
             :class="{ firstpersonbuttonActive: ghostMode }"
           ></div>
           <span class="xbsj-item-name">{{ lang.firstperson }}</span>
         </div>
-        <span v-if="menuConfig.navigate.interactivemode.firstperson"   
+        <span
+          v-if="menuConfig.navigate.interactivemode.firstperson"
           class="xbsj-select"
           :class="{ highlight: popup == 'firstPerson' }"
           @click.stop="togglePopup('firstPerson', $event)"
         ></span>
-        <div  v-if="menuConfig.navigate.interactivemode.mouseshiqu"      class="xbsj-item-btnbox" @click="picking = !picking">
+        <div
+          v-if="menuConfig.navigate.interactivemode.mouseshiqu"
+          class="xbsj-item-btnbox"
+          @click="picking = !picking"
+        >
           <div
             class="xbsj-item-btn mousebutton"
             :class="{ mousebuttonActive: picking }"
           ></div>
           <span class="xbsj-item-name">{{ lang.mouseshiqu }}</span>
         </div>
-        <span  v-if="menuConfig.navigate.interactivemode.mouseshiqu"    
+        <span
+          v-if="menuConfig.navigate.interactivemode.mouseshiqu"
           class="xbsj-select"
           :class="{ highlight: popup == 'pickObject' }"
           @click.stop="togglePopup('pickObject', $event)"
         ></span>
         <!-- vr -->
-        <div v-if="menuConfig.navigate.interactivemode.VR"       class="xbsj-item-btnbox" @click="vrClick">
+        <div
+          v-if="menuConfig.navigate.interactivemode.VR"
+          class="xbsj-item-btnbox"
+          @click="vrClick"
+        >
           <div class="xbsj-item-btn vrbutton"></div>
           <span class="xbsj-item-name">VR</span>
         </div>
@@ -306,10 +349,9 @@ import SceneSaveAsComp from "./SceneSaveAs";
 import SceneOpenComp from "./SceneOpen";
 import TrackComp from "./Track";
 import { addOutterEventListener } from "../../../utils/xbsjUtil";
- 
 
 export default {
-  props: ["labServiceUI","menuConfig"],
+  props: ["labServiceUI", "menuConfig"],
   components: {
     SearchComp,
     RotateGlobeComp,
@@ -499,6 +541,38 @@ export default {
     },
     flyToChina() {
       this.$root.$earth.cameraViewManager.china.flyTo();
+    },
+    // 自定义飞到中国
+    flyToCChina() {
+      var camera =  {"position":[112.1091709574454,35.08681373079771,7214528.433936841],"pitch":-88.99041945997976,"heading":352.4809892348511,"roll":0}
+          this.$root.$earth.czm.viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(
+          camera.position[0],
+          camera.position[1],
+          camera.position[2]
+        ),
+        orientation: {
+          heading: Cesium.Math.toRadians(camera.heading), // east, default value is 0.0 (north)
+          pitch: Cesium.Math.toRadians(camera.pitch), // default value (looking down)
+          roll: camera.roll // default value
+        }
+      });
+    },
+    flyToChangShu() {
+      var camera =  {"position":[120.766, 31.667, 900],
+      "pitch":-45.77667031556409,"heading":16.692613541711115,"roll":0} ;
+     this.$root.$earth.czm.viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(
+          camera.position[0],
+          camera.position[1],
+          camera.position[2]
+        ),
+        orientation: {
+          heading: Cesium.Math.toRadians(camera.heading), // east, default value is 0.0 (north)
+          pitch: Cesium.Math.toRadians(camera.pitch), // default value (looking down)
+          roll: camera.roll // default value
+        }
+      });
     },
     flyToCustom() {
       let def = this.$root.$earth.cameraViewManager.defaultView;
