@@ -2,9 +2,9 @@
 <!-- box -->
 <div class="xbsj-template">
     <div class="xbsj-list" ref="container" @mousedown="startMove($event)" @mousemove="onMoving($event)" @mouseup="endMove($event)">
-        <div class="xbsj-list-item">
+        <div class="xbsj-list-item" v-if="menuConfig && menuConfig.model &&menuConfig.model.source ">
             <span class="xbsj-list-name">{{lang.source}}</span>
-            <div class="xbsj-item-btnbox ml20">
+            <div class="xbsj-item-btnbox ml20" v-if=" menuConfig.model.source.online">
                 <div class="xbsj-item-btn onlinebutton" @click="modelOnline=!modelOnline" :class="{highlight:modelOnline}"></div>
                 <span class="xbsj-item-name">{{lang.online}}</span>
             </div>
@@ -42,43 +42,43 @@
             </div>
         </div>
 
-        <div class="xbsj-list-item">
+        <div class="xbsj-list-item" v-if="menuConfig && menuConfig.model &&menuConfig.model.edit ">
             <span class="xbsj-list-name">{{lang.edit}}</span>
-            <div class="xbsj-item-btnbox ml20">
+            <div class="xbsj-item-btnbox ml20" v-if="menuConfig.model.edit.fenleimmodel">
                 <div class="xbsj-item-btn">
                     <button class="fenleititlesbutton" :class=" { highlight:classificationType === 'ClassificationType.CESIUM_3D_TILE' || classificationType === 'ClassificationType.BOTH'}" @click="titlesClick" :disabled="!enabled"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.fenleimmodel}}</span>
             </div>
 
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.fenleiterrain">
                 <div class="xbsj-item-btn">
                     <button class="fenleiterrainbutton" :class="{ highlight: classificationType === 'ClassificationType.TERRAIN' || classificationType === 'ClassificationType.BOTH' }" @click="terrainClick" :disabled="!enabled"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.fenleiterrain}}</span>
             </div>
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.style">
                 <div class="xbsj-item-btn">
                     <button class="stylebutton" :disabled="!enabled" @click="styleEditor()"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.style}}</span>
             </div>
 
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.move">
                 <div class="xbsj-item-btn">
                     <button class="movebutton" :class="{highlight:positionEditing}" :disabled="!enabled" @click="toggleMove"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.move}}</span>
             </div>
 
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.rotate">
                 <div class="xbsj-item-btn">
                     <button class="rotatebutton" :class="{highlight:rotationEditing}" :disabled="!enabled" @click="toggleRotate"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.rotate}}</span>
             </div>
 
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.view">
                 <div class="xbsj-item-btn">
                     <button class="lefttopButton" :class="xbsjLeftTopView ? 'lefttopButtonActive' : ''" @click="xbsjLeftTopView = !xbsjLeftTopView;" :disabled="!enabled"></button>
                     <button class="righttopButton" :class="xbsjRightTopView ? 'righttopButtonActive' : ''" @click="xbsjRightTopView = !xbsjRightTopView" :disabled="!enabled"></button>
@@ -87,32 +87,32 @@
                 </div>
                 <span class="xbsj-item-name">{{lang.view}}</span>
             </div>
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.techonlogy">
                 <div class="xbsj-item-btn">
                     <button class="techonlogybutton" :class="{highlight:technologyShader}" :disabled="!enabled" @click="toggleTechnology"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.techonlogy}}</span>
             </div>
             <!-- skipLevelOfDetail -->
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.SkipLOD">
                 <div class="xbsj-item-btn">
                     <button class="skipLevelOfDetailbutton" :class="skipLevelOfDetail ? 'skipLevelOfDetailActive' : ''" @click="skipLevelOfDetail =! skipLevelOfDetail" :disabled="!enabled"></button>
                 </div>
                 <span class="xbsj-item-name">SkipLOD</span>
             </div>
             <!-- 调试包围盒-->
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if="menuConfig.model.edit.debugShowBoundingVolume">
                 <div class="xbsj-item-btn">
                     <button class="debugShowBoundingVolumebutton" :class="debugShowBoundingVolume ? 'debugShowBoundingActive' :''" @click="debugShowBoundingVolume = !debugShowBoundingVolume" :disabled="!enabled"></button>
                 </div>
                 <span class="xbsj-item-name">{{lang.debugShowBoundingVolume}}</span>
             </div>
         </div>
-        <div class="xbsj-list-item">
+        <div class="xbsj-list-item"  v-if="menuConfig &&   menuConfig.model && menuConfig.model .visible">
             <span class="xbsj-list-name">{{lang.visible}}</span>
             <div class="xbsj-slide-group">
                 <!-- 显示精度 -->
-                <div class="xbsj-slide-top">
+                <div class="xbsj-slide-top"  v-if="menuConfig.model .visible.accuracy">
                     <label class="xbsj-slide-label" @click="maximumScreenSpaceError=16">{{lang.accuracy}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="-4" :max="8" :step="0.1" v-model="ssePower" :disabled="!enabled" :show-tip="showTip"></XbsjSlider>
@@ -120,7 +120,7 @@
                     <span class="xbsj-slide-span">{{maximumScreenSpaceError|f_one}}</span>
                 </div>
                 <!-- 材质底色 -->
-                <div class="xbsj-slide-bottom">
+                <div class="xbsj-slide-bottom" v-if="menuConfig.model .visible.material">
                     <label class="xbsj-slide-label">{{lang.material}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="5.0" :step="0.02" v-model="luminanceAtZenith" :disabled="!enabled" :show-tip="showTip"></XbsjSlider>
@@ -130,7 +130,7 @@
             </div>
             <div class="xbsj-slide-group">
                 <!-- 散射强度 -->
-                <div class="xbsj-slide-top">
+                <div class="xbsj-slide-top" v-if="menuConfig.model .visible.scatter">
                     <label class="xbsj-slide-label">{{lang.scatter}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="1.0" :step="0.01" v-model="imageBasedLightingFactor[0]" :disabled="!enabled" :show-tip="showTip"></XbsjSlider>
@@ -153,7 +153,7 @@
             <span class="xbsj-slide-span">{{imageBasedLightingFactor[1]}}</span>
           </div>-->
                 <!-- 最大内存 -->
-                <div class="xbsj-slide-bottom">
+                <div class="xbsj-slide-bottom" v-if="menuConfig.model .visible.maximumMemoryUsage">
                     <label class="xbsj-slide-label">{{lang.maximumMemoryUsage}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="512" :max="5120" :step="1" v-model="maximumMemoryUsage" :disabled="!enabled" :show-tip="showTip"></XbsjSlider>
@@ -252,7 +252,7 @@
 import languagejs from "./index_locale";
 
 export default {
-    props: ["labServiceUI", "cloudServiceUI"],
+    props: ["labServiceUI", "cloudServiceUI","menuConfig"],
     data() {
         return {
             showTip: "never",

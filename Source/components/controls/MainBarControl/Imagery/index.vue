@@ -2,9 +2,9 @@
 <!-- box -->
 <div class="xbsj-template">
     <div class="xbsj-list" ref="container" @mousedown="startMove($event)" @mousemove="onMoving($event)" @mouseup="endMove($event)">
-        <div class="xbsj-list-item">
+        <div class="xbsj-list-item" v-if="menuConfig&& menuConfig.imagery && menuConfig.imagery. source">
             <span class="xbsj-list-name">{{lang.source}}</span>
-            <div class="xbsj-item-btnbox ml20">
+            <div class="xbsj-item-btnbox ml20" v-if=" menuConfig.imagery. source.online">
                 <div class="xbsj-item-btn onlinebutton" @click="imageryOnline=!imageryOnline" :class="{highlight:imageryOnline}"></div>
                 <span class="xbsj-item-name">{{lang.online}}</span>
             </div>
@@ -13,49 +13,49 @@
                 <span class="xbsj-item-name">{{lang.localhost}}</span>
             </div> -->
 
-            <div class="xbsj-item-btnbox" v-show="cloudServiceUI">
+            <div class="xbsj-item-btnbox" v-show="cloudServiceUI" v-if=" menuConfig.imagery. source.cloud">
                 <div class="xbsj-item-btn localhostbutton" @click="imageryCloud=!imageryCloud" :class="{highlight:imageryCloud}"></div>
                 <span class="xbsj-item-name">{{lang.cloud}}</span>
             </div>
 
-            <div class="xbsj-item-btnbox">
+            <div class="xbsj-item-btnbox" v-if=" menuConfig.imagery. source.wms">
                 <div class="xbsj-item-btn wmsbutton" @click="imageryWMTS=!imageryWMTS" :class="{highlight:imageryWMTS}"></div>
                 <span class="xbsj-item-name">{{lang.wms}}</span>
             </div>
 
-            <div class="xbsj-item-btnbox" v-show="false">
+            <div class="xbsj-item-btnbox" v-show="false" >
                 <div class="xbsj-item-btn wmsbutton"></div>
                 <span class="xbsj-item-name">{{lang.wms}}</span>
             </div>
-            <div class="xbsj-item-btnbox" v-show="false">
+            <div class="xbsj-item-btnbox" v-show="false" >
                 <div class="xbsj-item-btn arcgisbutton"></div>
                 <span class="xbsj-item-name">{{lang.arcgis}}</span>
             </div>
-            <div class="xbsj-item-btnbox" v-show="true">
+            <div class="xbsj-item-btnbox" v-show="true" v-if=" menuConfig.imagery. source.history">
                 <div class="xbsj-item-btn arcgisbutton" @click="showHistory"></div>
                 <span class="xbsj-item-name">{{lang.history}}</span>
             </div>
         </div>
-        <div class="xbsj-list-item xbsj-list-lastitem">
+        <div class="xbsj-list-item xbsj-list-lastitem" v-if=" menuConfig.imagery && menuConfig.imagery.visible">
             <span class="xbsj-list-name">{{title}}</span>
-            <div class="xbsj-item-btnbox ml20">
+            <div class="xbsj-item-btnbox ml20" v-if=" menuConfig.imagery. visible.viewport">
                 <div class="btns">
                     <div class="xbsj-btn leftbutton" :class="{active:splitDirection != 'ImagerySplitDirection.RIGHT'}" @click="clickLeft"></div>
                     <div class="xbsj-btn rightbutton" :class="{active:splitDirection != 'ImagerySplitDirection.LEFT'}" @click="clickRight"></div>
                 </div>
 
-                <span class="xbsj-item-name">{{lang.viewport}}</span>
+                <span class="xbsj-item-name" >{{lang.viewport}}</span>
             </div>
 
             <div class="xbsj-slide-group">
-                <div class="xbsj-slide-top">
+                <div class="xbsj-slide-top" v-if="menuConfig.imagery.visible.transpare">
                     <label class="xbsj-slide-label" @click="alpha=1">{{lang.transpare}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="1" :step="0.01" showTip="hover" v-model="alpha" :disabled="!layerID"></XbsjSlider>
                     </div>
                     <span class="xbsj-slide-span">{{alpha}}</span>
                 </div>
-                <div class="xbsj-slide-bottom">
+                <div class="xbsj-slide-bottom" v-if="menuConfig.imagery.visible.contrast">
                     <label class="xbsj-slide-label" @click="contrast=1">{{lang.contrast}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="10" :step="0.1" showTip="hover" v-model="contrast" :disabled="!layerID"></XbsjSlider>
@@ -64,14 +64,14 @@
                 </div>
             </div>
             <div class="xbsj-slide-group">
-                <div class="xbsj-slide-top">
+                <div class="xbsj-slide-top"  v-if="menuConfig.imagery.visible.light">
                     <label class="xbsj-slide-label" @click="brightness=1">{{lang.light}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="10" :step="0.1" showTip="hover" v-model="brightness" :disabled="!layerID"></XbsjSlider>
                     </div>
                     <span class="xbsj-slide-span">{{brightness}}</span>
                 </div>
-                <div class="xbsj-slide-bottom">
+                <div class="xbsj-slide-bottom" v-if="menuConfig.imagery.visible.hue">
                     <label class="xbsj-slide-label" @click="hue=0">{{lang.hue}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="10" :step="0.1" showTip="hover" v-model="hue" :disabled="!layerID"></XbsjSlider>
@@ -80,14 +80,14 @@
                 </div>
             </div>
             <div class="xbsj-slide-group">
-                <div class="xbsj-slide-top">
+                <div class="xbsj-slide-top" v-if="menuConfig.imagery.visible.saturate">
                     <label class="xbsj-slide-label" @click="saturation=1">{{lang.saturate}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="10" :step="0.1" showTip="hover" v-model="saturation" :disabled="!layerID"></XbsjSlider>
                     </div>
                     <span class="xbsj-slide-span">{{saturation}}</span>
                 </div>
-                <div class="xbsj-slide-bottom">
+                <div class="xbsj-slide-bottom"  v-if="menuConfig.imagery.visible.gamma">
                     <label class="xbsj-slide-label" @click="gamma=1">{{lang.gamma}}</label>
                     <div class="xbsj-slide-div">
                         <XbsjSlider :min="0" :max="10" :step="0.1" showTip="hover" v-model="gamma" :disabled="!layerID"></XbsjSlider>
@@ -103,7 +103,7 @@
 <script>
 import languagejs from "./index_locale";
 export default {
-    props: ["labServiceUI", "cloudServiceUI"],
+    props: ["labServiceUI", "cloudServiceUI","menuConfig"],
     data() {
         return {
             showTip: "never",

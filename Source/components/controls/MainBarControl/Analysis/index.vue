@@ -7,7 +7,7 @@
       @mousemove="onMoving($event)"
       @mouseup="endMove($event)"
     >
-      <div class="xbsj-list-item">
+      <div class="xbsj-list-item" v-if="menuConfig.analysis && menuConfig.analysis.visualization">
         <!-- 视域分析 -->
         <span class="xbsj-list-name">{{lang.visualization}}</span>
 
@@ -17,7 +17,7 @@
           <span class="xbsj-item-name">{{lang.visibility}}</span>
         </div>-->
         <!-- 模型压平 -->
-        <div class="xbsj-item-btnbox" @click="startFlattenning" title="创建压平面">
+        <div class="xbsj-item-btnbox" @click="startFlattenning" title="创建压平面" v-if="menuConfig.analysis.visualization.flatten">
           <div class="xbsj-item-btn flattenbutton"></div>
           <span class="xbsj-item-name">{{lang.flatten}}</span>
         </div>
@@ -27,12 +27,12 @@
           <span class="xbsj-item-name">{{lang.flooding}}</span>
         </div>-->
         <!-- 视频融合 -->
-        <div class="xbsj-item-btnbox" @click="startCameraVideo" title="以当前相机姿态创建新的视频融合">
+        <div class="xbsj-item-btnbox" @click="startCameraVideo" title="以当前相机姿态创建新的视频融合" v-if="menuConfig.analysis.visualization.videofusion">
           <div class="xbsj-item-btn videofusionbutton"></div>
           <span class="xbsj-item-name">{{lang.videofusion}}</span>
         </div>
         <!-- 剖切 -->
-        <div class="xbsj-item-btnbox" @click="startClipping" title="创建剖切面">
+        <div class="xbsj-item-btnbox" @click="startClipping" title="创建剖切面" v-if="menuConfig.analysis.visualization.sectioning">
           <div class="xbsj-item-btn sectioningbutton"></div>
           <span class="xbsj-item-name">{{lang.sectioning}}</span>
         </div>
@@ -42,18 +42,18 @@
           <span class="xbsj-item-name">{{lang.potholing}}</span>
         </div>-->
         <!-- 可视域 -->
-        <div class="xbsj-item-btnbox ml20" @click="startViewshed" title="以当前相机姿态创建新的视域分析">
+        <div class="xbsj-item-btnbox ml20" @click="startViewshed" title="以当前相机姿态创建新的视域分析" v-if="menuConfig.analysis.visualization.visual">
           <div class="xbsj-item-btn visualbutton"></div>
           <span class="xbsj-item-name">{{lang.visual}}</span>
         </div>
         <!-- 水面 -->
-        <div class="xbsj-item-btnbox" @click="startWater" title="创建水面">
+        <div class="xbsj-item-btnbox" @click="startWater" title="创建水面"  v-if="menuConfig.analysis.visualization.water" >
           <div class="xbsj-item-btn waterbutton"></div>
           <span class="xbsj-item-name">{{lang.water}}</span>
         </div>
         <!-- 模型展开 -->
         <div
-          class="xbsj-item-btnbox"
+          class="xbsj-item-btnbox" v-if="menuConfig.analysis.visualization.expansion"
           title="模型展开"
           @drop="modelexpansion_drop($event)"
           @dragover="modelexpansion_dragover($event)"
@@ -70,22 +70,22 @@
           <span class="xbsj-item-name">{{lang.expansion}}</span>
         </div>
         <!-- 挖坑 -->
-        <div class="xbsj-item-btnbox ml20" @click="cutSurfaceBtn">
+        <div class="xbsj-item-btnbox ml20" @click="cutSurfaceBtn" v-if="menuConfig.analysis.visualization.cutsurface">
           <div class="xbsj-item-btn cutsurfacebutton"></div>
           <span class="xbsj-item-name">{{lang.cutsurface}}</span>
         </div>
       </div>
-      <div class="xbsj-list-item xbsj-list-lastitem">
+      <div class="xbsj-list-item xbsj-list-lastitem" v-if="menuConfig.analysis.measure">
         <span class="xbsj-list-name">{{lang.measure}}</span>
 
-        <div class="xbsj-item-btnbox ml20" @click="measurementType='POINT'">
+        <div class="xbsj-item-btnbox ml20" @click="measurementType='POINT'" v-if="menuConfig.analysis.measure.point">
           <div
             class="xbsj-item-btn pointbutton"
             :class="measurementType === 'POINT' ? 'pointbuttonActive' : ''"
           ></div>
           <span class="xbsj-item-name">{{lang.point}}</span>
         </div>
-        <div class="xbsj-item-btnbox" @click="measurementType='SPACE_DISTANCE'">
+        <div class="xbsj-item-btnbox" @click="measurementType='SPACE_DISTANCE'" v-if="menuConfig.analysis.measure.distance"> 
           <div
             class="xbsj-item-btn distancebutton"
             :class="measurementType === 'SPACE_DISTANCE' ? 'distancebuttonActive' : ''"
@@ -94,27 +94,27 @@
         </div>
 
         <!-- 贴地距离 -->
-        <div class="xbsj-item-btnbox" @click="disGroudMeasure()">
+        <div class="xbsj-item-btnbox" @click="disGroudMeasure()" v-if="menuConfig.analysis.measure.disGroud">
           <div
             class="xbsj-item-btn disGroudbutton"
             :class="measurementType === 'SPACE_DIS_GROUD' ? 'disGroudbuttonActive' : ''"
           ></div>
           <span class="xbsj-item-name">{{lang.disGroud}}</span>
         </div>
-        <span
+        <span  v-if="menuConfig.analysis.disGroud"
           class="xbsj-select"
           :class="{highlight:popup == 'dis_interpolation'}"
           @click.stop="togglePopup('dis_interpolation',$event)"
         ></span>
 
-        <div class="xbsj-item-btnbox" @click="measurementType='TRIANGLE_DISTANCE'">
+        <div class="xbsj-item-btnbox" @click="measurementType='TRIANGLE_DISTANCE'"  v-if="menuConfig.analysis.measure.height">
           <div
             class="xbsj-item-btn heightbutton"
             :class="measurementType === 'TRIANGLE_DISTANCE' ? 'heightbuttonActive' : ''"
           ></div>
           <span class="xbsj-item-name">{{lang.height}}</span>
         </div>
-        <div class="xbsj-item-btnbox" @click="measurementType='SPACE_AREA'">
+        <div class="xbsj-item-btnbox" @click="measurementType='SPACE_AREA'" v-if="menuConfig.analysis.measure.area">
           <div
             class="xbsj-item-btn areabutton"
             :class="measurementType === 'SPACE_AREA' ? 'areabuttonActive' : ''"
@@ -123,13 +123,13 @@
         </div>
 
         <!-- 剖面 -->
-        <div class="xbsj-item-btnbox" @click="sectionPlane()">
+        <div class="xbsj-item-btnbox" @click="sectionPlane()" v-if="menuConfig.analysis.measure.sectionPlane">
           <div class="xbsj-item-btn sectionGroudbutton"></div>
           <span class="xbsj-item-name">{{lang.sectionPlane}}</span>
         </div>
 
         <!-- 贴地面积 -->
-        <div class="xbsj-item-btnbox" @click="areaGroudMeasure()">
+        <div class="xbsj-item-btnbox" @click="areaGroudMeasure()" v-if="menuConfig.analysis.measure.areaGroud">
           <div
             class="xbsj-item-btn areaGroudbutton"
             :class="measurementType === 'SPACE_AREA_GROUD' ? 'areaGroudbuttonActive' : ''"
@@ -137,13 +137,13 @@
           <span class="xbsj-item-name">{{lang.areaGroud}}</span>
         </div>
         <span
-          class="xbsj-select"
+          class="xbsj-select" v-if="menuConfig.analysis.measure.areaGroud"
           :class="{highlight:popup == 'interpolation'}"
           @click.stop="togglePopup('interpolation',$event)"
         ></span>
 
         <!-- 方位角 -->
-        <div class="xbsj-item-btnbox" @click="angleMeasure()">
+        <div class="xbsj-item-btnbox" @click="angleMeasure()" v-if="menuConfig.analysis.measure.angle">
           <div
             class="xbsj-item-btn anglebutton"
             :class="measurementType === 'SPACE_ANGLE' ? 'anglebuttonActive' : ''"
@@ -152,7 +152,7 @@
         </div>
 
         <!-- 通视 -->
-        <div class="xbsj-item-btnbox" @click="startIntervisible()">
+        <div class="xbsj-item-btnbox" @click="startIntervisible()" v-if="menuConfig.analysis.measure.intervisible">
           <div
             class="xbsj-item-btn intervisiblebutton"
             :class="measurementType === 'SPACE_Intervisible' ? 'intervisiblebuttonActive' : ''"
@@ -161,7 +161,7 @@
         </div>
 
         <!-- 圆形通视 -->
-        <div class="xbsj-item-btnbox" @click="circleIntervisible()">
+        <div class="xbsj-item-btnbox" @click="circleIntervisible()" v-if="menuConfig.analysis.measure.circleIntervisible">
           <div
             class="xbsj-item-btn circleIntervisiblebutton"
             :class="measurementType === 'SPACE_Circle_Intervisible' ? 'circleIntervisiblebuttonActive' : ''"
@@ -170,11 +170,11 @@
         </div>
 
         <!-- <div class="xbsj-item-btnbox" @click="cutFillEnabled=!cutFillEnabled"> -->
-        <div class="xbsj-item-btnbox" @click="cutFillComputingShow=!cutFillComputingShow">
+        <div class="xbsj-item-btnbox" @click="cutFillComputingShow=!cutFillComputingShow" v-if="menuConfig.analysis.measure.volume">
           <div class="xbsj-item-btn volumebutton" :class="{highlight:cutFillComputingShow}"></div>
           <span class="xbsj-item-name">{{lang.volume}}</span>
         </div>
-        <div class="xbsj-item-btnbox" @click="clearResults">
+        <div class="xbsj-item-btnbox" @click="clearResults" v-if="menuConfig.analysis.measure.reset">
           <div class="xbsj-item-btn resetbutton"></div>
           <span class="xbsj-item-name">{{lang.reset}}</span>
         </div>
@@ -211,6 +211,7 @@ export default {
   components: {
     Interpolation
   },
+      props: ["menuConfig"],
   data () {
     return {
       lang: {},

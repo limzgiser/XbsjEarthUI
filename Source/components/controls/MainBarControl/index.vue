@@ -6,18 +6,19 @@
 
     <div class='top-menu'>
         <img :src="logoImg" class="logo-img">
-        <ul class="xbsj-title-ul">
-            <li @click="switchPage('navigate')" :class="{'xbsj-title-item-on':page=='navigate'}">{{lang.roam}}</li>
-            <li @click="switchPage('view')" :class="{'xbsj-title-item-on':page=='view'}">{{lang.view}}</li>
-            <li @click="switchPage('imagery')" :class="{'xbsj-title-item-on':page=='imagery'}">{{lang.images}}</li>
-            <li @click="switchPage('model')" :class="{'xbsj-title-item-on':page=='model'}">{{lang.model}}</li>
-            <li @click="switchPage('terrain')" :class="{'xbsj-title-item-on':page=='terrain'}">{{lang.terrain}}</li>
-            <li @click="switchPage('analysis')" :class="{'xbsj-title-item-on':page=='analysis'}">{{lang.analysis}}</li>
-            <li @click="switchPage('effect')" :class="{'xbsj-title-item-on':page=='effect'}">{{lang.effect}}</li>
+        <ul class="xbsj-title-ul" >
+     
+            <li   v-if="menuConfig && menuConfig.navigate"  @click="switchPage('navigate')" :class="{'xbsj-title-item-on':page=='navigate'}">{{lang.roam}}</li>
+            <li   v-if="menuConfig && menuConfig.view"    @click="switchPage('view')" :class="{'xbsj-title-item-on':page=='view'}">{{lang.view}}</li>
+            <li   v-if="menuConfig && menuConfig.imagery"   @click="switchPage('imagery')" :class="{'xbsj-title-item-on':page=='imagery'}">{{lang.images}}</li>
+            <li   v-if="menuConfig && menuConfig.model"   @click="switchPage('model')" :class="{'xbsj-title-item-on':page=='model'}">{{lang.model}}</li>
+            <li   v-if="menuConfig && menuConfig.terrain"   @click="switchPage('terrain')" :class="{'xbsj-title-item-on':page=='terrain'}">{{lang.terrain}}</li>
+            <li   v-if="menuConfig && menuConfig.analysis"   @click="switchPage('analysis')" :class="{'xbsj-title-item-on':page=='analysis'}">{{lang.analysis}}</li>
+            <li   v-if="menuConfig && menuConfig.effect"   @click="switchPage('effect')" :class="{'xbsj-title-item-on':page=='effect'}">{{lang.effect}}</li>
 
-            <li @click="switchPage('entity')" :class="{'xbsj-title-item-on':page=='entity'}">{{lang.plotting}}</li>
+            <li   v-if="menuConfig && menuConfig.entity"   @click="switchPage('entity')" :class="{'xbsj-title-item-on':page=='entity'}">{{lang.plotting}}</li>
 
-            <li @click="switchPage('other')" :class="{'xbsj-title-item-on':page=='other'}">{{lang.other}}</li>
+            <li   v-if="menuConfig && menuConfig.other"   @click="switchPage('other')" :class="{'xbsj-title-item-on':page=='other'}">{{lang.other}}</li>
             <!-- <li @click="openmodel">测试model对话框</li> -->
         </ul>
     </div>
@@ -29,15 +30,15 @@
     </Modal>-->
     <!-- 七大组件部分 -->
     <div>
-        <NavigateComp ref="navigate" v-show="page=='navigate'" :labServiceUI="labServiceUI"></NavigateComp>
-        <XbsjViewComp ref="view" v-show="page=='view'"></XbsjViewComp>
-        <ImageryComp ref="imagery" v-show="page=='imagery'" :cloudServiceUI="cloudServiceUI" :labServiceUI="labServiceUI"></ImageryComp>
-        <TilesetComp ref="model" v-show="page=='model'" :cloudServiceUI="cloudServiceUI" :labServiceUI="labServiceUI"></TilesetComp>
-        <TerrainComp ref="terrain" v-show="page=='terrain'" :cloudServiceUI="cloudServiceUI" :labServiceUI="labServiceUI"></TerrainComp>
-        <AnalysisComp ref="analysis" v-show="page=='analysis'"></AnalysisComp>
-        <EffectComp ref="effect" v-show="page=='effect'"></EffectComp>
-        <EntityComp ref="entity" v-show="page=='entity'"></EntityComp>
-        <OtherComp ref="other" v-show="page=='other'"></OtherComp>
+        <NavigateComp ref="navigate"     :menuConfig = menuConfig v-show="page=='navigate'" :labServiceUI="labServiceUI"></NavigateComp>
+        <XbsjViewComp ref="view"   :menuConfig = menuConfig   v-show="page=='view'"     ></XbsjViewComp>
+        <ImageryComp ref="imagery" :menuConfig = menuConfig   v-show="page=='imagery'" :cloudServiceUI="cloudServiceUI" :labServiceUI="labServiceUI"></ImageryComp>
+        <TilesetComp ref="model"   :menuConfig = menuConfig   v-show="page=='model'"   :cloudServiceUI="cloudServiceUI" :labServiceUI="labServiceUI"></TilesetComp>
+        <TerrainComp ref="terrain" :menuConfig = menuConfig   v-show="page=='terrain'" :cloudServiceUI="cloudServiceUI" :labServiceUI="labServiceUI"></TerrainComp>
+        <AnalysisComp ref="analysis" :menuConfig = menuConfig  v-show="page=='analysis'"></AnalysisComp>
+        <EffectComp ref="effect"   :menuConfig = menuConfig   v-show="page=='effect'"  ></EffectComp>
+        <EntityComp ref="entity"  :menuConfig = menuConfig    v-show="page=='entity'"  ></EntityComp>
+        <OtherComp ref="other"   :menuConfig = menuConfig     v-show="page=='other'"   ></OtherComp>
     </div>
 </div>
 </template>
@@ -55,6 +56,7 @@ import OtherComp from "./Other";
 import languagejs from "./index_locale";
 import logoImg from "../../../images/geo3d/logo_3d.png";
 import userInfoComp from './geo3d/userInfo'
+import menu from './menu.config';
 export default {
     components: {
         NavigateComp,
@@ -77,11 +79,13 @@ export default {
             labServiceUI: true,
             cloudServiceUI: false,
             langs: languagejs,
-            logoImg: logoImg
+            logoImg: logoImg,
+            menuConfig:menu
         };
     },
     created() {},
     mounted() {
+    
         // var search = window.location.search;
         // window.labserver = this.getSearchString("labserver", search);
         // if (window.labserver !== undefined) {

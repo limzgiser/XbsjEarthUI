@@ -2,18 +2,18 @@
   <!-- box -->
   <div class="xbsj-template">
     <div class="xbsj-list" ref="container">
-      <div class="xbsj-list-item">
+      <div class="xbsj-list-item"  v-if="menuConfig.other && menuConfig.other.dataSource">
         <span class="xbsj-list-name">{{lang.dataSource}}</span>
         <!-- 数据源-->
-        <div class="xbsj-item-btnbox" @click="geoJSON">
+        <div class="xbsj-item-btnbox" @click="geoJSON" v-if="menuConfig.other.dataSource.GeoJSON">
           <div class="xbsj-item-btn geojson"></div>
           <span class="xbsj-item-name">GeoJSON</span>
         </div>
-        <div class="xbsj-item-btnbox" @click="KML">
+        <div class="xbsj-item-btnbox" @click="KML" v-if="menuConfig.other.dataSource.KML">
           <div class="xbsj-item-btn kml"></div>
           <span class="xbsj-item-name">KML</span>
         </div>
-        <div class="xbsj-item-btnbox" @click="Czml">
+        <div class="xbsj-item-btnbox" @click="Czml" v-if="menuConfig.other.dataSource.Czml">
           <div class="xbsj-item-btn czml"></div>
           <span class="xbsj-item-name">Czml</span>
         </div>
@@ -41,6 +41,7 @@
 import languagejs from "./index_locale";
 
 export default {
+    props: ["menuConfig"],
   components: {},
   data() {
     return {
