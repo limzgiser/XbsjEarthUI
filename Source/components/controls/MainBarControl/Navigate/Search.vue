@@ -137,7 +137,7 @@ export default {
   width: 270px;
   height: 276px;
   top: 131px;
-  left: 568px;
+  left: 477px;
   overflow: auto;
   padding: 10px 10px;
 }
