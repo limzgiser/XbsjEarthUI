@@ -80,6 +80,9 @@
           @click.stop="togglePopup('chinaView', $event)"
         ></span>
 
+ 
+
+      <!-- 自定义       -->
         <div class="xbsj-item-btnbox" v-if="menuConfig.navigate.view.custom">
           <div class="xbsj-item-btn custombutton" @click="flyToCustom"></div>
           <span class="xbsj-item-name">{{ lang.custom }}</span>
@@ -89,6 +92,8 @@
           :class="{ highlight: cameraViewManagerShow }"
           @click.stop="toggleCameraViewManager()"
         ></span>
+
+ 
       </div>
       <div class="xbsj-list-item" v-if="menuConfig&&menuConfig.navigate.location">
         <span class="xbsj-list-name">{{ lang.location }}</span>

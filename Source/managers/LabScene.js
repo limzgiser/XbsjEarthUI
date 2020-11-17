@@ -106,6 +106,7 @@ class LabScene {
 	loadScene(id) {
 		if (!id) {
 			let config =  defaultConfig;
+			 
 			this._root.earth.xbsjFromJSON(config);
 			this.sceneName = '默认场景';
 			this.sceneID = '';
@@ -140,8 +141,11 @@ class LabScene {
 	 * 保存场景
 	 */
 	saveScene() {
-		//如果当前全局内没有场景，那么 向服务器新建场景
 
+		// var jc = this._root.earth.toJSON();
+		// console.log(jc.cameraViewManager)
+
+		//如果当前全局内没有场景，那么 向服务器新建场景
 		if (!this.sceneID) {
 			console.log('没有场景id，新建');
 			//新建场景
@@ -160,9 +164,10 @@ class LabScene {
 		// if (this.sceneID) return;
 
 		var jc = this._root.earth.toJSON();
+ 
 		var labServer = this._root.labServer;
 		var self = this;
-		console.log(jc.cameraViewManager)
+	
 		this._root.earth.capture(64, 64).then((img) => {
 			var params = {
 				name: self.saveAsSceneParams.name || self.sceneName|| '新建场景',
@@ -170,7 +175,6 @@ class LabScene {
 				config: JSON.stringify(jc),
 				thumbnail: img,
 			};
-			console.log(params);
 			labServer
 				.addScene(params)
 				.then((id) => {
