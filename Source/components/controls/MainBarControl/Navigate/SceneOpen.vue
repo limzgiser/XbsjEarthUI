@@ -31,7 +31,7 @@
         <div class="item-name" :title="item.name">
           {{ item.name }}
         </div>
-        <span @click.self="deleteScene(item)" class="closeitem">X</span>
+        <!-- <span @click.self="deleteScene(item)" class="closeitem">X</span> -->
       </div>
     </div>
   </Window>
