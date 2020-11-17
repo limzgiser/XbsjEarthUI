@@ -5,7 +5,8 @@
 </div>
 
     <div class='top-menu'>
-        <img :src="logoImg" class="logo-img">
+        <!-- <img :src="logoImg" class="logo-img"> -->
+       <div style="width:200px;font-size:18px;font-weight:bold;color:#fff">城方三维基础平台</div> 
         <ul class="xbsj-title-ul" >
      
             <li   v-if="menuConfig && menuConfig.navigate"  @click="switchPage('navigate')" :class="{'xbsj-title-item-on':page=='navigate'}">{{lang.roam}}</li>
