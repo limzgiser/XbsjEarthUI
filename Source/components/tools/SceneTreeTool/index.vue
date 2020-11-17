@@ -356,39 +356,39 @@ export default {
             vueObject.titleEditable = true;
           }
         },
-        {
-          text: this.lang.viewSource,
-          keys: "",
-          border: true,
-          func: () => {
-            const jsonObject = item._inner.sn.toJSON();
+        // {
+        //   text: this.lang.viewSource,
+        //   keys: "",
+        //   border: true,
+        //   func: () => {
+        //     const jsonObject = item._inner.sn.toJSON();
 
-            const lastView = this.$root.$earth.cameraViewManager.lastView;
-            lastView.initWithCurrent();
-            const finalJsonObject = {
-              sceneTree: {
-                root: {
-                  children: [jsonObject]
-                }
-              },
-              cameraViewManager: {
-                lastView: lastView.toJSON()
-              }
-            };
-            const code = getCode(finalJsonObject);
-            const url = getCodeUrl(code);
-            this.$root.$earthUI.openURL(url);
-          }
-        },
-        {
-          text: this.lang.config,
-          keys: "",
-          border: true,
-          func: () => {
-            const jsonStr = item._inner.sn.toJSONStr();
-            console.log(jsonStr); // 控制台打印json配置信息，不要删！ vtxf 20191016
-          }
-        },
+        //     const lastView = this.$root.$earth.cameraViewManager.lastView;
+        //     lastView.initWithCurrent();
+        //     const finalJsonObject = {
+        //       sceneTree: {
+        //         root: {
+        //           children: [jsonObject]
+        //         }
+        //       },
+        //       cameraViewManager: {
+        //         lastView: lastView.toJSON()
+        //       }
+        //     };
+        //     const code = getCode(finalJsonObject);
+        //     const url = getCodeUrl(code);
+        //     this.$root.$earthUI.openURL(url);
+        //   }
+        // },
+        // {
+        //   text: this.lang.config,
+        //   keys: "",
+        //   border: true,
+        //   func: () => {
+        //     const jsonStr = item._inner.sn.toJSONStr();
+        //     console.log(jsonStr); // 控制台打印json配置信息，不要删！ vtxf 20191016
+        //   }
+        // },
         {
           text: this.lang.saveSceneNode,
           keys: "",
@@ -496,75 +496,75 @@ export default {
                   }
                 }
               },
-              {
-                text: this.lang.viewCzmSource,
-                func: () => {
-                  // 查看Cesium加载代码
-                  const tilesetCzmObject = item._inner.sn.czmObject;
-                  const code = getCzmCode(tilesetCzmObject);
-                  const url = getCodeUrl(code);
-                  this.$root.$earthUI.openURL(url);
-                }
-              }
+              // {
+              //   text: this.lang.viewCzmSource,
+              //   func: () => {
+              //     // 查看Cesium加载代码
+              //     const tilesetCzmObject = item._inner.sn.czmObject;
+              //     const code = getCzmCode(tilesetCzmObject);
+              //     const url = getCodeUrl(code);
+              //     this.$root.$earthUI.openURL(url);
+              //   }
+              // }
             ]
           );
         }
 
         // 如果是影像 那么增加几个属性   样式，移动，分层着色
         if (item._inner.sn.czmObject.xbsjType == "Imagery") {
-          baseItems.push(
-            ...[
-              {
-                text: this.lang.viewCzmSource,
-                func: () => {
-                  // 查看Cesium加载代码
-                  const imageCzmObject = item._inner.sn.czmObject;
-                  const code = getCzmImageCode(imageCzmObject);
-                  const url = getCodeUrl(code);
-                  this.$root.$earthUI.openURL(url);
-                }
-              }
-            ]
-          );
+          // baseItems.push(
+          //   ...[
+          //     {
+          //       text: this.lang.viewCzmSource,
+          //       func: () => {
+          //         // 查看Cesium加载代码
+          //         const imageCzmObject = item._inner.sn.czmObject;
+          //         const code = getCzmImageCode(imageCzmObject);
+          //         const url = getCodeUrl(code);
+          //         this.$root.$earthUI.openURL(url);
+          //       }
+          //     }
+          //   ]
+          // );
         }
 
         //如果有GroundImage类型，就添加一个GroundImage绑定菜单
-        if (item._inner.sn.czmObject) {
-          baseItems.push(
-            ...[
-              {
-                text: this.lang.addToSymbol,
-                func: () => {
-                  var self = this;
-                  this.$root.$earth.capture(64, 64).then(img => {
-                    self.$root.$labServer.addToSymbolGroup(
-                      item._inner.sn.czmObject,
-                      img
-                    );
-                  });
-                }
-              }
-            ]
-          );
-        }
+        // if (item._inner.sn.czmObject) {
+        //   baseItems.push(
+        //     ...[
+        //       {
+        //         text: this.lang.addToSymbol,
+        //         func: () => {
+        //           var self = this;
+        //           this.$root.$earth.capture(64, 64).then(img => {
+        //             self.$root.$labServer.addToSymbolGroup(
+        //               item._inner.sn.czmObject,
+        //               img
+        //             );
+        //           });
+        //         }
+        //       }
+        //     ]
+        //   );
+        // }
 
-        if (item._inner.sn.czmObject) {
-          baseItems.push(
-            ...[
-              {
-                text: this.lang.share,
-                func: () => {
-                  this.$root.$earthUI.showPropertyWindow(
-                    item._inner.sn.czmObject,
-                    {
-                      component: "ShareEditor"
-                    }
-                  );
-                }
-              }
-            ]
-          );
-        }
+        // if (item._inner.sn.czmObject) {
+        //   baseItems.push(
+        //     ...[
+        //       {
+        //         text: this.lang.share,
+        //         func: () => {
+        //           this.$root.$earthUI.showPropertyWindow(
+        //             item._inner.sn.czmObject,
+        //             {
+        //               component: "ShareEditor"
+        //             }
+        //           );
+        //         }
+        //       }
+        //     ]
+        //   );
+        // }
 
         baseItems.push(
           ...[
