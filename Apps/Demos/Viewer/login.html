@@ -30,25 +30,28 @@
 
 
         .website-header {
-            height: 15%;
-            min-height: 92px;
+            height: 110px;
+            display: flex;
             width: 100%;
             -ms-flex-pack: center;
             justify-content: center;
+            align-items: center;
             text-align: center;
             /* padding: 50px 260px 30px 0; */
             position: relative;
         }
 
-        .website-header .website-inline {
+        .website-header .login-block {
             vertical-align: top;
             width: 1024px;
             color: #01a0e1;
             display: inline-block;
             position: absolute;
-            bottom: 15%;
+            align-items: center;
+            padding-left: 21px;
+            /* bottom: 15%;
             left: 50%;
-            margin-left: -642px;
+            margin-left: -642px; */
             font: normal normal 700 normal 22px / 60px "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 
@@ -69,8 +72,8 @@
         .website-center {
             width: 100%;
             min-width: 1024px;
-            height: 69%;
-            min-height: 416px;
+            height: 680px;
+          
             display: flex;
             align-items: center;
             justify-content: center;
@@ -79,7 +82,9 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
         }
-
+.login-block{
+    width: 1024px;
+}
         .website-background {
 
 
@@ -96,11 +101,14 @@
             background-position: center center;
         }
 
-        .website-inline {
+        .website-header .website-inline {
             width: 1024px;
+            height: 100%;
             display: inline-flex;
             align-items: flex-start;
-            justify-content: flex-end;
+            align-items: center;
+            padding-left: 21px;
+           
         }
 
         .qrcode {
@@ -115,14 +123,15 @@
         }
 
         .auth-block {
-            width: 318px;
+            width: 360px;
             height: 376px;
             margin: 0;
             padding: 0 25px;
             border-radius: 4px;
             box-shadow: 0 0 4px rgba(0, 0, 0, .2);
             background: #f8f8f8;
-            box-sizing: border-box;;
+            box-sizing: border-box;
+            ;
         }
 
         .auth-block h1 {
@@ -217,8 +226,8 @@
         }
 
         .website-bottom {
-            height: 15%;
-            min-height: 92px;
+            height: 110px;
+            /* min-height: 92px; */
             width: 100%;
         }
 
@@ -257,14 +266,14 @@
 <body>
     <div class="auth-main">
         <div class="website-header">
-            <div class="website-inline">
+            <div class="website-inline header-top">
                 <img src="./assets/login/logo_3d_login.png">
             </div>
         </div>
         <div class="website-center">
             <div class="website-background">
 
-                <div class="website-inline">
+                <div class="website-inline login-block">
                     <div class="auth-block">
                         <div class=title>
                             <h4 style="font-weight: normal;"> 欢迎登录</h4>
