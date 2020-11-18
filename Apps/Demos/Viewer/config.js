@@ -1,1 +1,1 @@
-var serverpath = 'http://192.168.2.179/3d_v1/'
+var serverpath = 'http://cim.cityfun.com.cn/3d_v1/'
