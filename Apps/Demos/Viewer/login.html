@@ -5,7 +5,7 @@
     <title>常熟市时空三维可视化系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script src="scripts/jquery-1.6.2.js"></script>
     <script src="scripts/jquery.cookie.js"></script>
     <script src="scripts/jquery.md5.js"></script>
@@ -27,23 +27,30 @@
             background: #f8f8f8;
         }
 
-        .ps--active-y {
-            position: static;
-            display: block;
-            width: inherit;
-            height: inherit;
-            max-width: inherit;
-            max-height: inherit;
-        }
+
 
         .website-header {
-            height: 62px;
+            height: 15%;
+            min-height: 92px;
             width: 100%;
+            -ms-flex-pack: center;
+            justify-content: center;
+            text-align: center;
+            /* padding: 50px 260px 30px 0; */
+            position: relative;
         }
 
         .website-header .website-inline {
-            margin: 50px auto;
+            vertical-align: top;
             width: 1024px;
+            color: #01a0e1;
+            display: inline-block;
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            margin-left: -642px;
+            font: normal normal 700 normal 22px / 60px "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 
         }
 
@@ -62,31 +69,38 @@
         .website-center {
             width: 100%;
             min-width: 1024px;
-            height: 75%;
+            height: 69%;
             min-height: 416px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: url(assets/login/BG_1px.png) 0 0/100% 100% no-repeat;
+            -moz-background-size: 100% 100%;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
         }
 
         .website-background {
+
+
+
             width: 100%;
             height: 100%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             margin: auto auto;
-            background-size: auto 100%;
+            background-size: 100% 100%;
             background-repeat: no-repeat;
             background-image: url(assets/login/login_bg.jpg);
             background-position: center center;
         }
 
         .website-inline {
-            margin: 0 auto;
-            width: 1200px;
-            overflow: hidden;
+            width: 1024px;
+            display: inline-flex;
+            align-items: flex-start;
+            justify-content: flex-end;
         }
 
         .qrcode {
@@ -103,11 +117,12 @@
         .auth-block {
             width: 318px;
             height: 376px;
-            margin: 126px 164px 0 0;
+            margin: 0;
             padding: 0 25px;
             border-radius: 4px;
             box-shadow: 0 0 4px rgba(0, 0, 0, .2);
             background: #f8f8f8;
+            box-sizing: border-box;;
         }
 
         .auth-block h1 {
@@ -117,6 +132,15 @@
             margin: 0;
             font-weight: 300;
             text-align: center;
+        }
+
+        .auth-block .title {
+            /* padding-top: 24px; */
+            color: #000;
+            font-size: 18px;
+            margin: 0;
+            text-align: center;
+            /* font-weight: normal !important; */
         }
 
         .form-account {
@@ -232,74 +256,68 @@
 
 <body>
     <div class="auth-main">
-        <div class="ps ps--active-y">
-            <div class="ps-content" style="height: 100%;">
-                <div class="website-header">
-                    <div class="website-inline">
-                        <img src="./assets/login/logo_3d_login.png">
-                    </div>
-                </div>
-                <div class="website-center">
-                    <div class="website-background">
-                        <div class="website-inline">
-                            <div class="auth-block">
-                                <h1>欢迎登录</h1>
-                                <form class="form-horizontal ng-untouched ng-pristine ng-invalid" novalidate="">
-                                    <div class="row">
-                                        <div class="col-sm-12 form-account">
-                                            <input class="form-control ng-untouched ng-pristine ng-invalid"
-                                                id="input_account" placeholder="请输入账号" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 form-password">
-                                            <input class="form-control ng-untouched ng-pristine ng-invalid"
-                                                id="input_password" placeholder="请输入密码" type="password">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 form-checkbox" id="checkpsd">
-                                            <span id="checkbox-password" class="checkbox-img"></span>
-                                            <span class="checkbox-span">记住用户名</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 form-button">
-                                            <button class="btn btn-default btn-auth ant-btn" id="submit" nz-button=""
-                                                type="button">
-                                                <span>
-                                                    <span>登 录</span>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="row message">
-                                        <div id="form-message" class="col-sm-12 form-message"> </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- <div class="qrcode"><img src="./images/login/img_city.png"></div> -->
-                        </div>
-                    </div>
-                </div>
-                <!---->
-                <div class="website-bottom">
+        <div class="website-header">
+            <div class="website-inline">
+                <img src="./assets/login/logo_3d_login.png">
+            </div>
+        </div>
+        <div class="website-center">
+            <div class="website-background">
 
-                    <div>
-                        <span>版权所有：常熟市大数据管理局</span>
-                        <span>技术支持：苏州城方信息技术有限公司</span>
+                <div class="website-inline">
+                    <div class="auth-block">
+                        <div class=title>
+                            <h4 style="font-weight: normal;"> 欢迎登录</h4>
+
+                        </div>
+                        <form class="form-horizontal ng-untouched ng-pristine ng-invalid" novalidate="">
+                            <div class="row">
+                                <div class="col-sm-12 form-account">
+                                    <input class="form-control ng-untouched ng-pristine ng-invalid" id="input_account"
+                                        placeholder="请输入账号" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-password">
+                                    <input class="form-control ng-untouched ng-pristine ng-invalid" id="input_password"
+                                        placeholder="请输入密码" type="password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-checkbox" id="checkpsd">
+                                    <span id="checkbox-password" class="checkbox-img"></span>
+                                    <span class="checkbox-span">记住用户名</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-button">
+                                    <button class="btn btn-default btn-auth ant-btn" id="submit" nz-button=""
+                                        type="button">
+                                        <span>
+                                            <span>登 录</span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row message">
+                                <div id="form-message" class="col-sm-12 form-message"> </div>
+                            </div>
+                        </form>
                     </div>
+                    <!-- <div class="qrcode"><img src="./images/login/img_city.png"></div> -->
                 </div>
             </div>
-            <!---->
-            <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-            </div>
-            <div class="ps__rail-y" style="top: 0px; right: 0px; height: 208px;">
-                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 72px;"></div>
+        </div>
+        <!---->
+        <div class="website-bottom">
+
+            <div>
+                <span>版权所有：常熟市大数据管理局</span>
+                <span>技术支持：苏州城方信息技术有限公司</span>
             </div>
         </div>
     </div>
+
 
 </html>
 <script type="text/javascript">
