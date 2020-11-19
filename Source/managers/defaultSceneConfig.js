@@ -1,30 +1,6 @@
 export default {
 	sceneTree: {
-		root: {
-			children: [
-				{
-					title: '场景树',
-					children: [
-						{
-							czmObject: {
-								xbsjType: 'Imagery',
-								xbsjGuid: '8098d190-ef3a-4e82-acfc-f086ab1a4235',
-								name: '谷歌影像',
-								xbsjImageryProvider: {
-									XbsjImageryProvider: {
-										url: '//mt1.google.cn/vt/lyrs=s,h&gl=cn&x={x}&y={y}&z={z}&s=Gali',
-										srcCoordType: 'GCJ02',
-									},
-									UrlTemplateImageryProvider: {},
-									WebMapTileServiceImageryProvider: {},
-									createTileMapServiceImageryProvider: {},
-								},
-							},
-						},
-					],
-				},
-			],
-		},
+		root:  initTree,
 	},
 	cameraViewManager: {
 		globe: {
@@ -39,12 +15,7 @@ export default {
 			near: 0.1,
 			far: 10000000000,
 		},
-		// changshu: {
-		// 	position: [2.1077733845178135, 0.5527001037711997, 818.0778478090306],
-		// 	rotation: [0.2913410670658507, -0.7989536176065442, 1.5987211554602254e-14],
-		// 	near: 0.1,
-		// 	far: 10000000000,
-		// },
+	 
 		lastView: {
 			position: [2.1031217486531673, 0.5041488444338827, 20803593.74891228],
 			rotation: [6.283185307179586, -1.570619506862022, 0],
