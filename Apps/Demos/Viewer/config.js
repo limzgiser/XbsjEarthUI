@@ -8,12 +8,12 @@ var  initTree =  {
                 {
                 
                     "czmObject": {
-                        "name": "谷歌影像",
+                        "name": "天地图影像",
                         "xbsjType": "Imagery",
                         "xbsjImageryProvider": {
                             "XbsjImageryProvider": {
-                                "url": "//mt1.google.cn/vt/lyrs=s,h&gl=cn&x={x}&y={y}&z={z}&s=Gali",
-                                "srcCoordType": "GCJ02",
+                                "url": "//t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=aeda5b9a5f1e1d8264af5eb95b0be4cd",
+                                "srcCoordType": "WGS84",
                                 "dstCoordType": "WGS84",
                             },
                         }
@@ -22,4 +22,11 @@ var  initTree =  {
             ]
         },
     ]
+};
+
+var camera = {
+    "position": [120.766, 31.667, 900],
+    "pitch": -45.77667031556409,
+    "heading": 16.692613541711115,
+    "roll": 0.0
 };

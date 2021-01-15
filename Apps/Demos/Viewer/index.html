@@ -132,12 +132,6 @@
             //否则按照示例代码方法创建
             else {
                 earthUI.earth.sceneTree.root = initTree;
-                var camera = {
-                    "position": [120.766, 31.667, 900],
-                    "pitch": -45.77667031556409,
-                    "heading": 16.692613541711115,
-                    "roll": 0.0
-                };
 
                 earthUI.earth.czm.viewer.camera.setView({
                     destination: Cesium.Cartesian3.fromDegrees(
