@@ -82,8 +82,8 @@
           <span class="xbsj-item-name">中国</span>
         </div>
         <div class="xbsj-item-btnbox">
-          <div class="xbsj-item-btn globalbutton" @click="flyToChangShu"></div>
-          <span class="xbsj-item-name">常熟</span>
+          <div class="xbsj-item-btn globalbutton" @click="flyToKaiFaQu"></div>
+          <span class="xbsj-item-name">开发区</span>
         </div>
 
         <!-- 自定义       -->
@@ -560,6 +560,22 @@ export default {
     },
     flyToChangShu() {
       var camera =  {"position":[120.766, 31.667, 900],
+      "pitch":-45.77667031556409,"heading":16.692613541711115,"roll":0} ;
+     this.$root.$earth.czm.viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(
+          camera.position[0],
+          camera.position[1],
+          camera.position[2]
+        ),
+        orientation: {
+          heading: Cesium.Math.toRadians(camera.heading), // east, default value is 0.0 (north)
+          pitch: Cesium.Math.toRadians(camera.pitch), // default value (looking down)
+          roll: camera.roll // default value
+        }
+      });
+    },
+    flyToKaiFaQu() {
+      var camera =  {"position":[120.66, 31.165, 900],
       "pitch":-45.77667031556409,"heading":16.692613541711115,"roll":0} ;
      this.$root.$earth.czm.viewer.camera.setView({
         destination: Cesium.Cartesian3.fromDegrees(
