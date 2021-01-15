@@ -25,8 +25,8 @@ var  initTree =  {
 };
 
 var camera = {
-    "position": [120.66, 31.165, 900],
+    "position": [120.658, 31.165, 900],
     "pitch": -45.77667031556409,
-    "heading": 16.692613541711115,
+    "heading": 0,
     "roll": 0.0
 };
