@@ -130,6 +130,10 @@ export default {
 
 	analysis: {
 		name: ' 分析',
+		query: {
+			label: '查询',
+			query: '查询',
+		},
 		visualization: {
 			// label: '可视化',
 			// flatten: '压平',
@@ -142,7 +146,7 @@ export default {
 		},
 		measure: {
 			label: '测量',
-			// point: '点位',
+			point: '点位',
 			distance: '距离',
 			disGroud: '贴地距离',
 			height: '高度',
@@ -155,6 +159,7 @@ export default {
 			// volume: '体积',
 			reset: '清除',
 		},
+
 	},
 
 	// effect: {

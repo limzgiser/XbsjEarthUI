@@ -7,6 +7,17 @@
       @mousemove="onMoving($event)"
       @mouseup="endMove($event)"
     >
+      <div class="xbsj-list-item" v-if="menuConfig.analysis.query">
+        <span class="xbsj-list-name">{{lang.query}}</span>
+
+        <div class="xbsj-item-btnbox ml20" @click="measurementType='POINT'" v-if="menuConfig.analysis.query.query">
+          <div
+            class="xbsj-item-btn querybutton"
+            :class="measurementType === 'POINT' ? 'querybuttonActive' : ''"
+          ></div>
+          <span class="xbsj-item-name">{{lang.identify}}</span>
+        </div>
+      </div>
       <div class="xbsj-list-item" v-if="menuConfig.analysis && menuConfig.analysis.visualization">
         <!-- 视域分析 -->
         <span class="xbsj-list-name">{{lang.visualization}}</span>
@@ -75,7 +86,7 @@
           <span class="xbsj-item-name">{{lang.cutsurface}}</span>
         </div>
       </div>
-      <div class="xbsj-list-item xbsj-list-lastitem" v-if="menuConfig.analysis.measure">
+      <div class="xbsj-list-item  xbsj-list-lastitem" v-if="menuConfig.analysis.measure">
         <span class="xbsj-list-name">{{lang.measure}}</span>
 
         <div class="xbsj-item-btnbox ml20" @click="measurementType='POINT'" v-if="menuConfig.analysis.measure.point">
@@ -183,6 +194,7 @@
           <span class="xbsj-item-name">地质</span>
         </div>-->
       </div>
+
     </div>
     <Interpolation
       ref="interpolation"
@@ -347,6 +359,9 @@ export default {
     }
   },
   methods: {
+    pointQuery (v) {
+      alert("xxx")
+    },
     changeInterval (v) {
       this.areaGroudinterval = v;
     },
@@ -859,6 +874,23 @@ export default {
   background-size: contain;
   cursor: pointer;
 }
+
+.querybutton {
+  background: url(../../../../images/query.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+.querybutton:hover {
+  background: url(../../../../images/query_on.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+.querybuttonActive {
+  background: url(../../../../images/query_on.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
 .pointbutton {
   background: url(../../../../images/point.png) no-repeat;
   background-size: contain;

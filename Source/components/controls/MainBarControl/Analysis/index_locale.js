@@ -1,4 +1,6 @@
 const zh = {
+  query: "查询",
+  identify: "查询",
   visualization: "可视化",
   visual: "可视阈",
   visibility: "可见性",
