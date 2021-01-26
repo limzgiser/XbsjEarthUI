@@ -482,61 +482,82 @@ export default {
       } else {
         this.queryType = "";
       }
-      const _self = this;
-      this._earth = this.$root.$earth;
+
       const viewer = this.$root.$earth.czm.viewer;
-      const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-      handler.setInputAction(function (movement) {
-        var scene = viewer.scene;
-        var pickedObject = scene.pick(movement.position); //判断是否拾取到模型
-        if (scene.pickPositionSupported && Cesium.defined(pickedObject)) {
+      //有关当前选定功能的信息  
+      var selected = {  
+      feature:undefined,  
+      originalColor:new Cesium.Color()  
+      };  
+      // An entity object which will hold info about the currently selected feature for infobox display
+      var selectedEntity = new Cesium.Entity();
+
+      // Get default left click handler for when a feature is not picked on left click
+      var clickHandler = viewer.screenSpaceEventHandler.getInputAction(
+        Cesium.ScreenSpaceEventType.LEFT_CLICK
+      );
+        // Color a feature on selection and show metadata in the InfoBox.
+        viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
+          // Pick a new feature
+          var pickedFeature = viewer.scene.pick(movement.position);
+          if (!Cesium.defined(pickedFeature)) {
+            viewer.selectedEntity = "";
+            clickHandler(movement);
+            return;
+          }
+
+        if (viewer.scene.pickPositionSupported && Cesium.defined(pickedFeature)) {
           var cartesian = viewer.scene.pickPosition(movement.position);
           if (Cesium.defined(cartesian)) {
             var cartographic = Cesium.Cartographic.fromCartesian(cartesian); //根据笛卡尔坐标获取到弧度
             var lng = Cesium.Math.toDegrees(cartographic.longitude); //根据弧度获取到经度
             var lat = Cesium.Math.toDegrees(cartographic.latitude); //根据弧度获取到纬度
             var height = cartographic.height; //模型高度
-            annotate(cartesian, lng, lat, height);
+            console.log(cartesian, lng, lat, height);
           }
         }
-      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-      var annotations = viewer.scene.primitives.add(
-        new Cesium.LabelCollection()
-      );
 
-      //信息提示框
-      function annotate(cartesian, lng, lat, height) {
-        createPoint(cartesian);
-        annotations.add({
-          position: cartesian,
-          text:
-            "Lon: " +
-            lng.toFixed(5) +
-            "\u00B0" +
-            "\nLat: " +
-            lat.toFixed(5) +
-            "\u00B0" +
-            "\nheight: " +
-            height.toFixed(2) +
-            "m",
-          showBackground: true,
-          font: "14px monospace",
-          horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
-          verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-          disableDepthTestDistance: Number.POSITIVE_INFINITY,
-        });
-      }
-      //添加点
-      function createPoint(worldPosition) {
-        var point = viewer.entities.add({
-          position: worldPosition,
-          point: {
-            color: Cesium.Color.WHITE,
-            pixelSize: 5,
-          },
-        });
-        return point;
-      }
+          // Highlight newly selected feature
+          // pickedFeature.color = Cesium.Color.LIME;
+          // Set feature infobox description
+          var featureName = pickedFeature.getProperty("name");
+          selectedEntity.name = featureName;
+          selectedEntity.description =
+            'Loading <div class="cesium-infoBox-loading"></div>';
+          viewer.selectedEntity = selectedEntity;
+          selectedEntity.description =
+            '<table class="cesium-infoBox-defaultTable"><tbody>' +
+            "<tr><th>ID</th><td>" +
+            pickedFeature.getProperty("ID") +
+            "</td></tr>" +
+            "<tr><th>Longitude</th><td>" +
+            lng +
+            "</td></tr>" +
+            "<tr><th>Latitude</th><td>" +
+            lat +
+            "</td></tr>" +
+            "<tr><th>Height</th><td>" +
+            height +
+            "</td></tr>" +
+            "</tbody></table>";
+        },
+        Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+      // // handler.setInputAction(function (movement) {
+      // //   var scene = viewer.scene;
+      // //   var pickedObject = scene.pick(movement.position); //判断是否拾取到模型
+      // //   if (scene.pickPositionSupported && Cesium.defined(pickedObject)) {
+      // //     var cartesian = viewer.scene.pickPosition(movement.position);
+      // //     if (Cesium.defined(cartesian)) {
+      // //       var cartographic = Cesium.Cartographic.fromCartesian(cartesian); //根据笛卡尔坐标获取到弧度
+      // //       var lng = Cesium.Math.toDegrees(cartographic.longitude); //根据弧度获取到经度
+      // //       var lat = Cesium.Math.toDegrees(cartographic.latitude); //根据弧度获取到纬度
+      // //       var height = cartographic.height; //模型高度
+      // //       annotate(cartesian, lng, lat, height);
+      // //     }
+      // //   }
+      // // }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
     },
     changeInterval(v) {
       this.areaGroudinterval = v;
