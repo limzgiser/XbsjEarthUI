@@ -12,14 +12,25 @@
 
         <div
           class="xbsj-item-btnbox ml20"
-          @click="pointQuery"
+          @click="pointQuery('dkquery')"
           v-if="menuConfig.analysis.query.query"
         >
           <div
-            class="xbsj-item-btn querybutton"
-            :class="queryType === 'POINT' ? 'querybuttonActive' : ''"
+            class="xbsj-item-btn querydkbutton"
+            :class="queryType === 'dkquery' ? 'querydkbuttonActive' : ''"
           ></div>
-          <span class="xbsj-item-name">{{ lang.identify }}</span>
+          <span class="xbsj-item-name">{{ lang.dkquery }}</span>
+        </div>
+        <div
+          class="xbsj-item-btnbox ml20"
+          @click="pointQuery('jzquery')"
+          v-if="menuConfig.analysis.query.query"
+        >
+          <div
+            class="xbsj-item-btn queryjzbutton"
+            :class="queryType === 'jzquery' ? 'queryjzbuttonActive' : ''"
+          ></div>
+          <span class="xbsj-item-name">{{ lang.jzquery }}</span>
         </div>
       </div>
       <div
@@ -477,18 +488,19 @@ export default {
   },
   methods: {
     pointQuery(v) {
-      if (this.queryType === "") {
-        this.queryType = "POINT";
-      } else {
-        this.queryType = "";
+      if (v === "dkquery") {
+        this.queryType = "dkquery";
+      }
+      if (v === "jzquery") {
+        this.queryType = "jzquery";
       }
 
       const viewer = this.$root.$earth.czm.viewer;
-      //有关当前选定功能的信息  
-      var selected = {  
-      feature:undefined,  
-      originalColor:new Cesium.Color()  
-      };  
+      //有关当前选定功能的信息
+      var selected = {
+        feature: undefined,
+        originalColor: new Cesium.Color(),
+      };
       // An entity object which will hold info about the currently selected feature for infobox display
       var selectedEntity = new Cesium.Entity();
 
@@ -496,17 +508,22 @@ export default {
       var clickHandler = viewer.screenSpaceEventHandler.getInputAction(
         Cesium.ScreenSpaceEventType.LEFT_CLICK
       );
-        // Color a feature on selection and show metadata in the InfoBox.
-        viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
-          // Pick a new feature
-          var pickedFeature = viewer.scene.pick(movement.position);
-          if (!Cesium.defined(pickedFeature)) {
-            viewer.selectedEntity = "";
-            clickHandler(movement);
-            return;
-          }
-
-        if (viewer.scene.pickPositionSupported && Cesium.defined(pickedFeature)) {
+      // Color a feature on selection and show metadata in the InfoBox.
+      viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(
+        movement
+      ) {
+        // Pick a new feature
+        var pickedFeature = viewer.scene.pick(movement.position);
+        if (!Cesium.defined(pickedFeature)) {
+          viewer.selectedEntity = "";
+          // clickHandler(movement);
+          return;
+        }
+        if (
+          viewer.scene.pickPositionSupported &&
+          Cesium.defined(pickedFeature)
+        ) {
+          
           var cartesian = viewer.scene.pickPosition(movement.position);
           if (Cesium.defined(cartesian)) {
             var cartographic = Cesium.Cartographic.fromCartesian(cartesian); //根据笛卡尔坐标获取到弧度
@@ -517,47 +534,33 @@ export default {
           }
         }
 
-          // Highlight newly selected feature
-          // pickedFeature.color = Cesium.Color.LIME;
-          // Set feature infobox description
-          var featureName = pickedFeature.getProperty("name");
-          selectedEntity.name = featureName;
-          selectedEntity.description =
-            'Loading <div class="cesium-infoBox-loading"></div>';
-          viewer.selectedEntity = selectedEntity;
-          selectedEntity.description =
-            '<table class="cesium-infoBox-defaultTable"><tbody>' +
-            "<tr><th>ID</th><td>" +
-            pickedFeature.getProperty("ID") +
-            "</td></tr>" +
-            "<tr><th>Longitude</th><td>" +
-            lng +
-            "</td></tr>" +
-            "<tr><th>Latitude</th><td>" +
-            lat +
-            "</td></tr>" +
-            "<tr><th>Height</th><td>" +
-            height +
-            "</td></tr>" +
-            "</tbody></table>";
-        },
-        Cesium.ScreenSpaceEventType.LEFT_CLICK);
+        // Highlight newly selected feature
+        // pickedFeature.color = Cesium.Color.LIME;
+        // Set feature infobox description
+        var featureName = pickedFeature.getProperty("name");
+        selectedEntity.name = featureName;
+        selectedEntity.description =
+          'Loading <div class="cesium-infoBox-loading"></div>';
+        viewer.selectedEntity = selectedEntity;
+        selectedEntity.description =
+          '<table class="cesium-infoBox-defaultTable"><tbody>' +
+          "<tr><th>ID</th><td>" +
+          pickedFeature.getProperty("ID") +
+          "</td></tr>" +
+          "<tr><th>Longitude</th><td>" +
+          lng +
+          "</td></tr>" +
+          "<tr><th>Latitude</th><td>" +
+          lat +
+          "</td></tr>" +
+          "<tr><th>Height</th><td>" +
+          height +
+          "</td></tr>" +
+          "</tbody></table>";
+      },
+      Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
-      // // handler.setInputAction(function (movement) {
-      // //   var scene = viewer.scene;
-      // //   var pickedObject = scene.pick(movement.position); //判断是否拾取到模型
-      // //   if (scene.pickPositionSupported && Cesium.defined(pickedObject)) {
-      // //     var cartesian = viewer.scene.pickPosition(movement.position);
-      // //     if (Cesium.defined(cartesian)) {
-      // //       var cartographic = Cesium.Cartographic.fromCartesian(cartesian); //根据笛卡尔坐标获取到弧度
-      // //       var lng = Cesium.Math.toDegrees(cartographic.longitude); //根据弧度获取到经度
-      // //       var lat = Cesium.Math.toDegrees(cartographic.latitude); //根据弧度获取到纬度
-      // //       var height = cartographic.height; //模型高度
-      // //       annotate(cartesian, lng, lat, height);
-      // //     }
-      // //   }
-      // // }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-
+   
     },
     changeInterval(v) {
       this.areaGroudinterval = v;
@@ -1072,18 +1075,34 @@ export default {
   cursor: pointer;
 }
 
-.querybutton {
-  background: url(../../../../images/query.png) no-repeat;
+.querydkbutton {
+  background: url(../../../../images/ic_land.png) no-repeat;
   background-size: contain;
   cursor: pointer;
 }
-.querybutton:hover {
-  background: url(../../../../images/query_on.png) no-repeat;
+.querydkbutton:hover {
+  background: url(../../../../images/ic_land_on.png) no-repeat;
   background-size: contain;
   cursor: pointer;
 }
-.querybuttonActive {
-  background: url(../../../../images/query_on.png) no-repeat;
+.querydkbuttonActive {
+  background: url(../../../../images/ic_land_on.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.queryjzbutton {
+  background: url(../../../../images/ic_house.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+.queryjzbutton:hover {
+  background: url(../../../../images/ic_house_on.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+.queryjzbuttonActive {
+  background: url(../../../../images/ic_house_on.png) no-repeat;
   background-size: contain;
   cursor: pointer;
 }

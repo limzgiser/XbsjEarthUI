@@ -1,6 +1,7 @@
 const zh = {
   query: "查询",
-  identify: "查询",
+  dkquery: "地块查询",
+  jzquery: "建筑查询",
   visualization: "可视化",
   visual: "可视阈",
   visibility: "可见性",
