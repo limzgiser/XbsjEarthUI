@@ -6,6 +6,15 @@
 
     <div class='top-menu'>
         <img :src="logoImg" class="logo-img">
+       <div class="menu-title">
+        <div class="top">
+            吴江经济技术开发区
+        </div>
+         <div class="bottom">
+            规建数据管理系统
+        </div>
+        </div>
+        
         <ul class="xbsj-title-ul" >
      
             <li   v-if="menuConfig && menuConfig.navigate"  @click="switchPage('navigate')" :class="{'xbsj-title-item-on':page=='navigate'}">{{lang.roam}}</li>
@@ -54,7 +63,7 @@ import EffectComp from "./Effect";
 import EntityComp from "./Entity";
 import OtherComp from "./Other";
 import languagejs from "./index_locale";
-import logoImg from "../../../images/geo3d/logo_3d.png";
+import logoImg from "../../../images/geo3d/logo.png";
 import userInfoComp from './geo3d/userInfo'
 import menu from './menu.config';
 export default {
@@ -151,19 +160,52 @@ export default {
 .user-adm{
     position:absolute;
     right:20px;
-    height:50px;
+    height:60px;
+
+}
+.menu-title{
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+    height:60px;
+    justify-content: center;
+}
+.top{
+    width: 149px;
+height: 21px;
+font-size: 16px;
+font-family: Microsoft YaHei;
+font-weight: bold;
+line-height: 32px;
+color: #FFFFFF;
+ display:flex;
+ align-items: center;
+opacity: 1;
+
+}
+.bottom{
+    width: 166px;
+height: 26px;
+font-size: 20px;
+font-family: Microsoft YaHei;
+font-weight: bold;
+line-height: 32px;
+color: #FFFFFF;
+  display:flex;
+ align-items: center;
+opacity: 1;
 
 }
 .top-menu {
     display: flex;
     background: #474747;
-    height: 50px;
+    height: 60px;
     padding-left: 20px;
     align-items: center;
 }
 
 .logo-img {
-    margin-right: 30px;
+    margin-right: 10px;
 }
 
 .xbsj-nav {
@@ -188,7 +230,7 @@ export default {
 .xbsj-title-ul li {
     float: left;
     width: 70px;
-    height: 50px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -345,7 +345,7 @@ import Interpolation from "./Interpolation";
 import { getPickRay } from "../../../utils/measure";
 import { createPolylinePrimitive } from "../../../utils/DepthPolyline";
 import { getDisAndLabelPos } from "../../../utils/measure";
-
+import { parse } from "wellknown";
 export default {
   components: {
     Interpolation,
@@ -367,6 +367,7 @@ export default {
       popup: "",
       disGroudMeasureing: false,
       queryType: "",
+      dataSource:null,
     };
   },
   created() {},
@@ -487,80 +488,154 @@ export default {
     },
   },
   methods: {
+    pointQueryDataToGeoJson(info, detail) {
+      let tmpInfo = info.data.outputParams;
+      let tmpdetail = detail.data.rows;
+      if (tmpdetail.length) {
+        let features = [];
+        tmpdetail.forEach((item) => {
+          let wkt = item.geo;
+          let geometry = parse(wkt);
+          delete item.geo;
+          let properties = {};
+          let keys = Object.keys(item);
+          for (let key of keys) {
+            let inKeyItem = tmpInfo.find((ifo) => ifo.name === key);
+            if (inKeyItem) {
+              properties[inKeyItem["alias"]] = item[key];
+            }
+          }
+          let geojson = {
+            type: "Feature",
+            geometry: geometry,
+            properties: properties,
+          };
+          features.push(geojson);
+        });
+        return {
+          type: "FeatureCollection",
+          features: features,
+        };
+      }
+
+      return null;
+    },
+    showDetail(data,title){
+          const viewer = this.$root.$earth.czm.viewer;
+      console.log(data);
+         var selectedEntity = new Cesium.Entity();
+        selectedEntity.name = title;
+        viewer.selectedEntity = selectedEntity;
+        let startStr = `<table class = "cesium-infoBox-defaultTable"><tbody>`;
+        let endStr = `</tbody></table>`;
+        let properties = data.features[0].properties;
+        Object.keys(properties).forEach(key=>{
+          startStr+=`
+            <tr>
+            <th>${key}</th>
+            <th>${properties[key] ||'--'}</th>
+          </tr>
+          `
+        });
+        selectedEntity.description =startStr+endStr; 
+    },
     pointQuery(v) {
+    
+      const viewer = this.$root.$earth.czm.viewer;
+      viewer.scene.globe.depthTestAgainstTerrain = true;
+      var labServer = this.$root.$earthUI.labServer;
+      const self = this;
+      let title = '';
+      viewer._container.style.cursor = "crosshair";
       if (v === "dkquery") {
         this.queryType = "dkquery";
+        title = '地块详情';
       }
       if (v === "jzquery") {
         this.queryType = "jzquery";
+          title = '建筑详情';
       }
 
-      const viewer = this.$root.$earth.czm.viewer;
-      //有关当前选定功能的信息
-      var selected = {
-        feature: undefined,
-        originalColor: new Cesium.Color(),
-      };
-      // An entity object which will hold info about the currently selected feature for infobox display
-      var selectedEntity = new Cesium.Entity();
+      
+      viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(
+        event
+      ) {
+        
+        var cartesian = viewer.scene.pickPosition(event);
+        if (Cesium.defined(cartesian)) {
+          var position = viewer.scene.pickPosition(event.position);
+          var cartographic = Cesium.Cartographic.fromCartesian(position);
+          var lat = Cesium.Math.toDegrees(cartographic.latitude);
+          var lng = Cesium.Math.toDegrees(cartographic.longitude);
+          // 地块查询
+          let params = {
+            _geo: `point(${lng} ${lat})`,
+          };
+          // setTimeout(() => {
+          //      viewer.scene.globe.depthTestAgainstTerrain = false;
+          // }, 10);
+          //  viewer.scene.globe.depthTestAgainstTerrain = false;
+          let promiseAll =  null;
+          if(v=='dkquery'){
+              promiseAll = Promise.all([
+              labServer.queryLandInfo(),
+              labServer.queryLandDetail(params),
+           ]);
+          }
+          if(v=='jzquery'){
+             promiseAll = Promise.all([
+            labServer.queryHouseInfo(),   
+            labServer.queryHouseDetail(params),
+          ]);
+          }
+           promiseAll.then((results) => {
+            if (results.length == 2 && results[0].data && results[1].data) {
+              if (results[1].data.rows.length == 0) {
+                self.$root.$earthUI.promptInfo("查询为空!", "warning");  
+                 
+              } else {
+        
+                let geojson = self.pointQueryDataToGeoJson(
+                  results[0],
+                  results[1]
+                );
+                if (geojson) {
+              self.showDetail(geojson,title); 
+                if(self.dataSource){
+                    viewer.dataSources.remove(self.dataSource);
+                }
+                let geojsonDataSource = new Cesium.GeoJsonDataSource('queryland');
+               let   dataSource = geojsonDataSource.load(geojson, {
+                    stroke: Cesium.Color.RED,
+                    fill: new Cesium.Color(1,0, 0, 0.5),
+                    strokeWidth: 5,
+                    clampToGround: true,
+                  });
+                 viewer.dataSources.add( dataSource);
+                  self.dataSource = geojsonDataSource;
+                  // viewer.zoomTo(dataSource);
+         
+                }
+              }
+            }
+          });
+        }
 
-      // Get default left click handler for when a feature is not picked on left click
-      var clickHandler = viewer.screenSpaceEventHandler.getInputAction(
-        Cesium.ScreenSpaceEventType.LEFT_CLICK
-      );
-      // Color a feature on selection and show metadata in the InfoBox.
+      
+      },
+      Cesium.ScreenSpaceEventType.LEFT_CLICK);
       viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(
         movement
       ) {
-        // Pick a new feature
-        var pickedFeature = viewer.scene.pick(movement.position);
-        if (!Cesium.defined(pickedFeature)) {
-          viewer.selectedEntity = "";
-          // clickHandler(movement);
-          return;
-        }
-        if (
-          viewer.scene.pickPositionSupported &&
-          Cesium.defined(pickedFeature)
-        ) {
-          
-          var cartesian = viewer.scene.pickPosition(movement.position);
-          if (Cesium.defined(cartesian)) {
-            var cartographic = Cesium.Cartographic.fromCartesian(cartesian); //根据笛卡尔坐标获取到弧度
-            var lng = Cesium.Math.toDegrees(cartographic.longitude); //根据弧度获取到经度
-            var lat = Cesium.Math.toDegrees(cartographic.latitude); //根据弧度获取到纬度
-            var height = cartographic.height; //模型高度
-            console.log(cartesian, lng, lat, height);
-          }
-        }
-
-        // Highlight newly selected feature
-        // pickedFeature.color = Cesium.Color.LIME;
-        // Set feature infobox description
-        var featureName = pickedFeature.getProperty("name");
-        selectedEntity.name = featureName;
-        selectedEntity.description =
-          'Loading <div class="cesium-infoBox-loading"></div>';
-        viewer.selectedEntity = selectedEntity;
-        selectedEntity.description =
-          '<table class="cesium-infoBox-defaultTable"><tbody>' +
-          "<tr><th>ID</th><td>" +
-          pickedFeature.getProperty("ID") +
-          "</td></tr>" +
-          "<tr><th>Longitude</th><td>" +
-          lng +
-          "</td></tr>" +
-          "<tr><th>Latitude</th><td>" +
-          lat +
-          "</td></tr>" +
-          "<tr><th>Height</th><td>" +
-          height +
-          "</td></tr>" +
-          "</tbody></table>";
+        viewer._container.style.cursor = "default";
+        self.queryType = "";
+        viewer.dataSources.remove(self.dataSource);
+          viewer.selectedEntity = null;
+        viewer.screenSpaceEventHandler.removeInputAction(
+          Cesium.ScreenSpaceEventType.LEFT_CLICK
+        );
       },
-      Cesium.ScreenSpaceEventType.LEFT_CLICK);
-
-   
+      Cesium.ScreenSpaceEventType.RIGHT_CLICK);
     },
     changeInterval(v) {
       this.areaGroudinterval = v;
