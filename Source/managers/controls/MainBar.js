@@ -88,7 +88,7 @@ class MainBar {
                 czmDom.style.height = 'calc(100% - 50px)';
             }
             else {
-                czmDom.style.height = 'calc(100% - 146px)';
+                czmDom.style.height = 'calc(100% - 156px)';
             }
         });
 

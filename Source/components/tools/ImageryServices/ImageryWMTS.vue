@@ -425,7 +425,7 @@ export default {
   outline: none;
 }
 .geshi {
-  width: calc(100% - 146px);
+  width: calc(100% - 156px);
   height: 28px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 3px;

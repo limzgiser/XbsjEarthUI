@@ -512,7 +512,7 @@ button:focus {
 }
 .chartContents {
   float: left;
-  width: calc(100% - 146px);
+  width: calc(100% - 156px);
   height: 100%;
 }
 </style>
