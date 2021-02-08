@@ -184,7 +184,7 @@ opacity: 1;
 
 }
 .bottom{
-    width: 166px;
+    width: 200px;
 height: 26px;
 font-size: 20px;
 font-family: Microsoft YaHei;
