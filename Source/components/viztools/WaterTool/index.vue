@@ -11,7 +11,7 @@
     <div class="xbsj-videoAttribute" ref="water">
       <!-- 名称 -->
       <div class="attributeName">
-        <label class="xbsj-label">{{lang.name}}</label>
+        <label class="xbsj-label">{{ lang.name }}</label>
         <input type="text" v-model="attribute.name" />
       </div>
       <!-- 编辑按钮 -->
@@ -22,15 +22,19 @@
             <button
               class="creatingButton"
               :class="attribute.creating ? 'creatingButtonActive' : ''"
-              @click="attribute.creating =!attribute.creating"
-            >{{lang.creating}}</button>
+              @click="attribute.creating = !attribute.creating"
+            >
+              {{ lang.creating }}
+            </button>
           </div>
           <div>
             <button
               class="creatingButton"
               :class="attribute.editing ? 'creatingButtonActive' : ''"
-              @click="attribute.editing =!attribute.editing"
-            >{{lang.editing}}</button>
+              @click="attribute.editing = !attribute.editing"
+            >
+              {{ lang.editing }}
+            </button>
           </div>
         </div>
         <!-- 拖拽 -->
@@ -39,61 +43,88 @@
           @drop="drop"
           @dragleave="dragLeave"
           class="dragButton"
-          :class="{highlight:drag_over}"
+          :class="{ highlight: drag_over }"
           :title="lang.drag"
-        >{{lang.dragcontent}}</div>
+        >
+          {{ lang.dragcontent }}
+        </div>
       </div>
 
       <div class="attributeLocation">
         <!-- 水面显隐 -->
-        <label class="showlabel">{{lang.show}}</label>
+        <label class="showlabel">{{ lang.show }}</label>
         <XbsjSwitch v-model="attribute.show"></XbsjSwitch>
         <!-- 边框显隐 -->
-        <label class="showlabel">{{lang.outlineshow}}</label>
+        <label class="showlabel">{{ lang.outlineshow }}</label>
         <XbsjSwitch v-model="outline.show"></XbsjSwitch>
         <!-- 是否贴地 -->
-        <label class="showlabel">{{lang.ground}}</label>
+        <label class="showlabel">{{ lang.ground }}</label>
         <XbsjSwitch v-model="attribute.ground"></XbsjSwitch>
       </div>
       <!-- 边框宽度 -->
       <div>
-        <label class="xbsj-label">{{lang.outlinewidth}}</label>
+        <label class="xbsj-label">{{ lang.outlinewidth }}</label>
         <div class="xbsj-slide-divs">
-          <XbsjSlider :min="0" :max="100" :step="1" v-model="outline.width" :show-tip="showTip"></XbsjSlider>
-          <span class="xbsj-rangespan">{{outline.width}}</span>
+          <XbsjSlider
+            :min="0"
+            :max="100"
+            :step="1"
+            v-model="outline.width"
+            :show-tip="showTip"
+          ></XbsjSlider>
+          <span class="xbsj-rangespan">{{ outline.width }}</span>
         </div>
       </div>
 
-      <div style="display: flex; margin-bottom: 14px;">
+      <div style="display: flex; margin-bottom: 14px">
         <!-- 边框颜色 -->
-        <label class="xbsj-label" style="margin-right: 20px;">{{lang.outlinecolor}}</label>
-        <XbsjColorButton v-model="outlineColorUI" ref="outlineColor"></XbsjColorButton>
+        <label class="xbsj-label" style="margin-right: 20px">{{
+          lang.outlinecolor
+        }}</label>
+        <XbsjColorButton
+          v-model="outlineColorUI"
+          ref="outlineColor"
+        ></XbsjColorButton>
         <!-- 基本颜色 -->
-        <label class="xbsj-label" style="margin-right: 20px; margin-left: 42px;">{{lang.basecolor}}</label>
-        <XbsjColorButton v-model="baseColorUI" ref="baseColor"></XbsjColorButton>
+        <label
+          class="xbsj-label"
+          style="margin-right: 20px; margin-left: 42px"
+          >{{ lang.basecolor }}</label
+        >
+        <XbsjColorButton
+          v-model="baseColorUI"
+          ref="baseColor"
+        ></XbsjColorButton>
         <!-- 融合颜色 -->
-        <label class="xbsj-label" style="margin-right: 20px; margin-left: 42px;">{{lang.blendcolor}}</label>
-        <XbsjColorButton v-model="blendColorUI" ref="blendColor"></XbsjColorButton>
+        <label
+          class="xbsj-label"
+          style="margin-right: 20px; margin-left: 42px"
+          >{{ lang.blendcolor }}</label
+        >
+        <XbsjColorButton
+          v-model="blendColorUI"
+          ref="blendColor"
+        ></XbsjColorButton>
       </div>
 
       <div class="movebox">
         <!-- 水面频率 -->
-        <label class="movespan">{{lang.frequency}}</label>
+        <label class="movespan">{{ lang.frequency }}</label>
         <input type="text" v-model="attribute.frequency" />
         <!-- 动画速度 -->
-        <label class="movespan">{{lang.animationspeed}}</label>
+        <label class="movespan">{{ lang.animationspeed }}</label>
         <input type="text" v-model="attribute.animationSpeed" />
         <!-- 水面振幅 -->
-        <label class="movespan">{{lang.amplitude}}</label>
+        <label class="movespan">{{ lang.amplitude }}</label>
         <input type="text" v-model="attribute.amplitude" />
         <!-- 水面强度 -->
-        <label class="movespan">{{lang.specularintensity}}</label>
+        <label class="movespan">{{ lang.specularintensity }}</label>
         <input type="text" v-model="attribute.specularIntensity" />
         <!-- 水平方向速度 -->
-        <label class="movespan">{{lang.horizontalspeed}}</label>
+        <label class="movespan">{{ lang.horizontalspeed }}</label>
         <input type="text" v-model="attribute.velocity[0]" />
         <!-- 垂直方向速度 -->
-        <label class="movespan">{{lang.verticalspeed}}</label>
+        <label class="movespan">{{ lang.verticalspeed }}</label>
         <input type="text" v-model="attribute.velocity[1]" />
       </div>
 
@@ -120,7 +151,22 @@
       <!-- <div class="attributeName">
         <label class="xbsj-label">{{lang.verticalspeed}}</label>
         <input type="text" v-model="attribute.velocity[1]" />
-      </div>-->
+      </div> -->
+
+      <div>
+        <label class="xbsj-label">水面高度</label>
+        <div class="xbsj-slide-divs">
+          <XbsjSlider style="width:280px;"
+            :min="1.5"
+            :max="3"
+            :step="0.1"
+            v-model="attribute.height"
+            :show-tip="showTip" 
+          ></XbsjSlider>
+             <span class="xbsj-rangespan">{{ attribute.height * 20}}年</span>
+        </div>
+       
+      </div>
     </div>
   </Window>
 </template>
@@ -128,7 +174,7 @@
 import languagejs from "./index_locale";
 export default {
   props: {
-    getBind: Function
+    getBind: Function,
   },
 
   data() {
@@ -146,16 +192,18 @@ export default {
         amplitude: 0,
         specularIntensity: 0,
         velocity: [],
-        arrlist: []
+        height: 1.51,
+        arrlist: [],
       },
       outline: {},
+
       outlineColorUI: {
         rgba: {
           r: 0,
           g: 255,
           b: 0,
-          a: 1
-        }
+          a: 1,
+        },
       },
       outlineColor: [0, 1, 0, 1],
       baseColorUI: {
@@ -163,8 +211,8 @@ export default {
           r: 51,
           g: 77,
           b: 153,
-          a: 1
-        }
+          a: 1,
+        },
       },
       baseColor: [0.2, 0.3, 0.6, 1],
       blendColorUI: {
@@ -172,12 +220,12 @@ export default {
           r: 128,
           g: 128,
           b: 128,
-          a: 0.7
-        }
+          a: 0.7,
+        },
       },
       blendColor: [0.5, 0.5, 0.5, 0.7],
       lang: {},
-      langs: languagejs
+      langs: languagejs,
     };
   },
   created() {},
@@ -196,14 +244,16 @@ export default {
         show: "attribute.show",
         outline: "outline",
         ground: "attribute.ground",
+        height: "attribute.height",
         frequency: "attribute.frequency",
         animationSpeed: "attribute.animationSpeed",
         amplitude: "attribute.amplitude",
         specularIntensity: "attribute.specularIntensity",
-        velocity: "attribute.velocity"
+        velocity: "attribute.velocity",
       };
 
       Object.entries(bindData).forEach(([sm, vm]) => {
+        console.log(vm, sm);
         if (typeof vm === "string") {
           this._disposers.push(XE.MVVM.bind(this, vm, czmObj, sm));
         } else {
@@ -252,6 +302,11 @@ export default {
 
     // water.addEventListener("dragover", handleDragOver, false);
     // water.addEventListener("drop", handleFileSelect, false);
+
+    // setInterval(() => {
+    //   this.attribute.height += 0.01;
+    //   console.log(this.attribute.height);
+    // }, 1200);
   },
   methods: {
     //拖拽移动上面
@@ -311,12 +366,12 @@ export default {
         const sceneObject = new XE.SceneTree.Leaf(viewshed);
         this.$root.$earthUI.addSceneObject(sceneObject);
       }
-    }
+    },
   },
   computed: {
     name() {
       return this.attribute.name;
-    }
+    },
   },
   watch: {
     // name(oldval, newval) {
@@ -340,8 +395,8 @@ export default {
           r: c[0] * 255,
           g: c[1] * 255,
           b: c[2] * 255,
-          a: c[3]
-        }
+          a: c[3],
+        },
       };
     },
     baseColorUI(color) {
@@ -358,8 +413,8 @@ export default {
           r: c[0] * 255,
           g: c[1] * 255,
           b: c[2] * 255,
-          a: c[3]
-        }
+          a: c[3],
+        },
       };
     },
     blendColorUI(color) {
@@ -376,23 +431,24 @@ export default {
           r: c[0] * 255,
           g: c[1] * 255,
           b: c[2] * 255,
-          a: c[3]
-        }
+          a: c[3],
+        },
       };
-    }
+    },
   },
   beforeDestroy() {
     // 解绑数据关联
     this._polygonDisposers = this._polygonDisposers && this._polygonDisposers();
-    this._disposers.forEach(e => e());
+    this._disposers.forEach((e) => e());
     this._disposers.length = 0;
-  }
+  },
 };
 </script>
 <style scoped>
 .xbsj-videoAttribute > div {
   /* width: 340px; */
-  height: 28px;
+  width: 430px;
+  /* height: 28px; */
   margin-top: 10px;
 }
 .xbsj-videoAttribute .xbsj-label {
@@ -638,6 +694,7 @@ button:focus {
 .movespan {
   margin-left: 12px;
 }
+
 .movebox input {
   width: calc(50% - 108px);
   height: 28px;
