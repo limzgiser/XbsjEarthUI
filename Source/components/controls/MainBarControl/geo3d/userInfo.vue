@@ -24,7 +24,7 @@ export default {
     computed: {},
     methods: {
         exitlogin() {
-            sessionStorage.removeItem("isLogin");
+            localStorage.removeItem("nm-token");
 
             var params = window.location.href.split('?scene=');
             if (params.length > 1) {
