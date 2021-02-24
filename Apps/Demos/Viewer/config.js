@@ -1,4 +1,7 @@
 var serverpath = 'http://cim.cityfun.com.cn/3d_v1/'
+var login = "http://192.168.2.64/geocms/api/admin/auth/login"
+
+var authInfo = "http://192.168.2.64/geocms/api/admin/auth/authinfo";
 
 var  initTree =  {
     "children": [
