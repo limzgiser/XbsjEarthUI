@@ -32,12 +32,13 @@
     <script>
       // console.log = function(){}
       let nmToken = localStorage.getItem("nm-token");
+      let accessToken = JSON.params(nmToken);
       $.ajax({
         type: "get",
         url: authInfo,
         headers: {
           "Content-Type": "application/json",
-          "Authorization":"Bearer "+ nmToken,
+          "Authorization":"Bearer "+ accessToken,
         },
         success: function(res) {
          
