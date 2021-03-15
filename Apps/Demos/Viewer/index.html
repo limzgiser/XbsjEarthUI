@@ -32,7 +32,7 @@
     <script>
       // console.log = function(){}
       let nmToken = localStorage.getItem("nm-token");
-      let accessToken = JSON.params(nmToken);
+      let accessToken = JSON.parse(nmToken);
       $.ajax({
         type: "get",
         url: authInfo,
