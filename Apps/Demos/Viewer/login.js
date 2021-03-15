@@ -61,7 +61,7 @@ $(document).ready(function() {
       success: function(res) {
         if (res.code == 1) {
           var accessToken = res.data.accessToken;
-          localStorage.setItem("nm-token", accessToken);
+          localStorage.setItem("nm-token", JSON.stringify({accessToken:accessToken}));
           var params = window.location.href.split("?scene=");
           if (params.length > 1) {
             var url = "./index.html?scene=" + params[1];
